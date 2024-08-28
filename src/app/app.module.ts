@@ -20,6 +20,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './pages/home/home.component';
+import { RouterModule } from '@angular/router';
+import { ViewInvoiceComponent } from './pages/view-invoice/view-invoice.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +37,22 @@ import { FormsModule } from '@angular/forms';
     TextFieldComponent,
     DropdownComponent,
     IssueDateComponent,
+    HomeComponent,
+    ViewInvoiceComponent,
+    NavigationComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, MatDatepickerModule, MatNativeDateModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule,
+    RouterModule.forRoot([
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: 'view/:invoice_id', component: ViewInvoiceComponent },
+    ]),
+  ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })

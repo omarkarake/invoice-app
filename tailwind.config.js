@@ -36,6 +36,10 @@ module.exports = {
           DEFAULT: "#373B53",
           light: "#7E88C3",
         },
+
+        navSplitter: {
+          DEFAULT: "#494E6E",
+        },
       },
       fontSize: {
         'h1': ['32px', { lineHeight: '36px', letterSpacing: '-1px', fontWeight: '700' }], 

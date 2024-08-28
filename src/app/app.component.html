@@ -1,9 +1,8 @@
-<div class="w-full h-dvh bg-white dark:bg-background-dark">
-  
-  <button (click)="toggleDarkMode()" class="p-2 bg-primary dark:bg-white text-black rounded-3xl">Toggle Dark Mode</button>
-  
-  <!-- <app-text-field></app-text-field> -->
-
-  <!-- <app-dropdown></app-dropdown> -->
-   <app-issue-date></app-issue-date>
+<div class="w-full min-h-screen h-auto lg:flex">
+  <div class="w-full lg:w-[7.15%] h-[72px] md:h-[80px] lg:h-dvh">
+    <app-navigation></app-navigation>
+  </div>
+  <div class="w-full lg:w-[93.85%] bg-red-500 h-dvh">
+    <router-outlet></router-outlet>
+  </div>
 </div>
