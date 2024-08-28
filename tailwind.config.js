@@ -27,6 +27,15 @@ module.exports = {
           light: "#F8F8FB",
           dark: "#141625",
         },
+        button3: {
+          DEFAULT: "#F9FAFE",
+          light: "#DFE3FA",
+          dark: "#252945",
+        },
+        button4: {
+          DEFAULT: "#373B53",
+          light: "#7E88C3",
+        },
       },
       fontSize: {
         'h1': ['32px', { lineHeight: '36px', letterSpacing: '-1px', fontWeight: '700' }], 
