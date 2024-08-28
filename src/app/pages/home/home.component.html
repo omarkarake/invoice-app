@@ -31,7 +31,8 @@
   </div>
 
   <!-- invoice list -->
-  <div>
+  <!-- for mobile -->
+  <div class="md:hidden">
     <div class="p-6 bg-white dark:bg-secondary-dark mt-8 rounded-lg">
       <div class="h-full flex justify-between items-center">
         <div>
@@ -61,6 +62,35 @@
           <div><p class="text-body1 !font-bold text-cardBg pt-2">Paid</p></div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- for tablet and desktop -->
+  <div
+    class="hidden mt-8 bg-white dark:bg-secondary-dark px-6 py-7 rounded-lg md:flex items-center justify-between"
+  >
+    <div class="pt-3">
+      <p class="text-body1 dark:text-white !font-bold">
+        <span class="text-accent-medium">#</span>RT3080
+      </p>
+    </div>
+    <div class="pt-3">
+      <p class="text-body1 dark:text-accent-light text-accent-medium">
+        Due 19 Aug 2021
+      </p>
+    </div>
+    <div class="pt-3">
+      <p class="text-body1 dark:text-white text-cardtext">Jensen Huang</p>
+    </div>
+    <div class="pt-3"><p class="text-h3 dark:text-white">£1,800.90</p></div>
+    <div
+      class="px-[30px] py-[5px] bg-cardBg bg-opacity-25 inline-flex justify-center items-center gap-2 rounded-md"
+    >
+      <div class="w-2 h-2 rounded-full bg-cardBg"></div>
+      <div><p class="text-body1 !font-bold text-cardBg pt-2">Paid</p></div>
+    </div>
+    <div class="cursor-pointer">
+      <img src="assets/icon-arrow-right.svg" />
     </div>
   </div>
 </div>
