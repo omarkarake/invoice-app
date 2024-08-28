@@ -1,0 +1,47 @@
+<div class="w-[240px]">
+  <div
+    class="dark:bg-button3-dark py-[17px] pl-5 pr-[15px] border rounded-[4px] flex justify-between items-center cursor-pointer"
+    [ngClass]="{
+      'border-primary-light': isDroping,
+      'border-accent-light dark:border-secondary-dark': !isDroping
+    }"
+    (click)="toggleDroping()"
+  >
+    <div><p class="text-body1 !font-bold dark:text-white">Net 30 Days</p></div>
+    <div><img src="assets/icon-arrow-down.svg" class="w-[10px] h-[5px]" /></div>
+  </div>
+
+  <div
+    class="the-shaddow w-[240px] h-auto rounded-lg bg-accent-light dark:bg-transparent mt-6 flex flex-col gap-[1px] absolute"
+    [ngClass]="{ hidden: !isDroping }"
+  >
+    <div
+      class="h-[46px] w-full rounded-t-lg bg-white dark:bg-button3-dark py-[17px] pl-6 flex justify-between items-center cursor-pointer"
+    >
+      <div>
+        <p class="text-body1 !font-bold dark:text-white">Net 1 Days</p>
+      </div>
+    </div>
+    <div
+      class="h-[46px] w-full bg-white dark:bg-button3-dark py-[17px] pl-6 flex justify-between items-center cursor-pointer"
+    >
+      <div>
+        <p class="text-body1 !font-bold dark:text-white">Net 7 Days</p>
+      </div>
+    </div>
+    <div
+      class="h-[46px] w-full bg-white dark:bg-button3-dark py-[17px] pl-6 flex justify-between items-center cursor-pointer"
+    >
+      <div>
+        <p class="text-body1 !font-bold dark:text-primary-light text-primary">Net 14 Days</p>
+      </div>
+    </div>
+    <div
+      class="h-[46px] w-full rounded-b-lg bg-white dark:bg-button3-dark py-[17px] pl-6 flex justify-between items-center cursor-pointer"
+    >
+      <div>
+        <p class="text-body1 !font-bold dark:text-white">Net 30 Days</p>
+      </div>
+    </div>
+  </div>
+</div>
