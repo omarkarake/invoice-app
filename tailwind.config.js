@@ -1,3 +1,5 @@
+const { text } = require('stream/consumers')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
@@ -39,6 +41,12 @@ module.exports = {
 
         navSplitter: {
           DEFAULT: "#494E6E",
+        },
+        cardtext: {
+          DEFAULT: "#858BB2",
+        },
+        cardBg: {
+          DEFAULT: "#33D69F",
         },
       },
       fontSize: {
