@@ -3,5 +3,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Datepicker Light Mode */
+.mat-calendar {
+    @apply bg-white text-black;
+  }
+  
+  .mat-calendar-header, 
+  .mat-calendar-table-header, 
+  .mat-calendar-body-cell {
+    @apply text-black;
+  }
+  
+  .mat-calendar-body-cell-content {
+    @apply bg-white text-black;
+  }
+  
+  .mat-calendar-body-cell-content:hover,
+  .mat-calendar-body-cell-content:focus {
+    @apply bg-accent-light text-black;
+  }
+  
+  .mat-calendar-body-selected {
+    @apply bg-primary text-white;
+  }
+  
+  /* Datepicker Dark Mode */
+  .dark .mat-calendar {
+    @apply bg-secondary-dark text-white;
+  }
+  
+  .dark .mat-calendar-header, 
+  .dark .mat-calendar-table-header, 
+  .dark .mat-calendar-body-cell {
+    @apply text-white;
+  }
+  
+  .dark .mat-calendar-body-cell-content {
+    @apply bg-secondary-dark text-white;
+  }
+  
+  .dark .mat-calendar-body-cell-content:hover,
+  .dark .mat-calendar-body-cell-content:focus {
+    @apply bg-accent-dark text-white;
+  }
+  
+  .dark .mat-calendar-body-selected {
+    @apply bg-primary text-white;
+  }
+  
+  /* Additional styles for dark mode */
+  .dark .mat-calendar-period-button,
+  .dark .mat-calendar-previous-button,
+  .dark .mat-calendar-next-button {
+    @apply text-white;
+  }

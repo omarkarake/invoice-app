@@ -7,15 +7,19 @@
       }"
       (click)="toggleDroping(picker)"
     >
-      <div><p class="text-body1 !font-bold dark:text-white">{{ selectedDate | date: 'dd MMM yyyy' }}</p></div>
+      <div>
+        <p class="text-body1 !font-bold dark:text-white">
+          {{ selectedDate | date : "dd MMM yyyy" }}
+        </p>
+      </div>
       <div><img src="assets/icon-calendar.svg" class="w-[16px] h-[16px]" /></div>
     </div>
-  
-    <div
-      class="the-shaddow w-[240px] h-auto rounded-lg bg-accent-light dark:bg-transparent mt-6 flex flex-col gap-[1px] absolute"
-      [ngClass]="{ hidden: !isDroping }"
-    >
-      <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" style="display: none;" />
-      <mat-datepicker #picker (closed)="onDateSelected()"></mat-datepicker>
-    </div>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [(ngModel)]="selectedDate"
+      style="visibility: hidden"
+    />
+    <mat-datepicker #picker (closed)="onDateSelected()"></mat-datepicker>
   </div>
+  
