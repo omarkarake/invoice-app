@@ -1,4 +1,6 @@
-<div class="w-full h-full lg:rounded-r-3xl bg-button4 flex lg:flex-col lg:justify-between">
+<div
+  class="w-full h-full lg:rounded-r-3xl bg-button4 flex lg:flex-col lg:justify-between"
+>
   <div class="w-full">
     <!-- Mobile Logo -->
     <img
@@ -21,8 +23,22 @@
   </div>
 
   <div class="flex lg:flex-col">
-    <div class="w-[80px] lg:w-full h-[72px] flex justify-center items-center">
-      <img class="w-5 h-5" src="assets/icon-moon.svg" />
+    <div
+      class="w-[80px] lg:w-full h-[72px] flex justify-center items-center lg:cursor-pointer"
+      (click)="toggleDarkMode()"
+    >
+      <!-- Moon icon for dark mode -->
+      <img
+        class="w-5 h-5 block dark:hidden"
+        src="assets/icon-moon.svg"
+        alt="Moon icon"
+      />
+      <!-- Sun icon for light mode -->
+      <img
+        class="w-5 h-5 hidden dark:block"
+        src="assets/icon-sun.svg"
+        alt="Sun icon"
+      />
     </div>
     <div class="w-[1px] lg:w-full lg:h-[1px] bg-navSplitter"></div>
     <div class="w-[80px] lg:w-full h-[72px] flex justify-center items-center">
