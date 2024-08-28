@@ -1,0 +1,5 @@
+<div class="w-[240px] py-[17px] px-5 border rounded-[4px]"
+[ngClass]="{'border-primary-light': isTyping, 'border-accent-light': !isTyping}"
+>
+    <input class="w-full text-body1 !font-bold border-none outline-none" type="text" (focus)="toggleIsActive()" (blur)="toggleIsActive()">
+</div>

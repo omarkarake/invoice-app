@@ -9,6 +9,7 @@ import { Button3Component } from './components/buttons/button3/button3.component
 import { Button4Component } from './components/buttons/button4/button4.component';
 import { Button5Component } from './components/buttons/button5/button5.component';
 import { Button6Component } from './components/buttons/button6/button6.component';
+import { TextFieldComponent } from './components/inputs/text-field/text-field.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { Button6Component } from './components/buttons/button6/button6.component
     Button3Component,
     Button4Component,
     Button5Component,
-    Button6Component
+    Button6Component,
+    TextFieldComponent
   ],
   imports: [
     BrowserModule,
