@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
+import { DarkModeService } from './service/dark-mode.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'invoice-app';
+  constructor(private darkModeService: DarkModeService) {}
+
+  toggleDarkMode() {
+    this.darkModeService.toggleTheme();
+  }
 }
