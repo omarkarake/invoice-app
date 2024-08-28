@@ -48,6 +48,9 @@ module.exports = {
         cardBg: {
           DEFAULT: "#33D69F",
         },
+        cardPending: {
+          DEFAULT: "#FF8F00",
+        },
       },
       fontSize: {
         'h1': ['32px', { lineHeight: '36px', letterSpacing: '-1px', fontWeight: '700' }], 
