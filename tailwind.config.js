@@ -29,12 +29,12 @@ module.exports = {
         },
       },
       fontSize: {
-        'h1': ['32px', { lineHeight: '36px', letterSpacing: '-1px' }],
-        'h2': ['20px', { lineHeight: '22px', letterSpacing: '-0.63px' }],
-        'h3': ['16px', { lineHeight: '24px', letterSpacing: '-0.8px' }],
-        'h3-small': ['12px', { lineHeight: '15px', letterSpacing: '-0.25px' }],
-        'body1': ['12px', { lineHeight: '15px', letterSpacing: '-0.25px' }],
-        'body2': ['11px', { lineHeight: '18px', letterSpacing: '-0.23px' }],
+        'h1': ['32px', { lineHeight: '36px', letterSpacing: '-1px', fontWeight: '700' }], 
+        'h2': ['20px', { lineHeight: '22px', letterSpacing: '-0.63px', fontWeight: '700' }], 
+        'h3': ['16px', { lineHeight: '24px', letterSpacing: '-0.8px', fontWeight: '700' }], 
+        'h3-small': ['12px', { lineHeight: '15px', letterSpacing: '-0.25px', fontWeight: '700' }], 
+        'body1': ['12px', { lineHeight: '15px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'body2': ['11px', { lineHeight: '18px', letterSpacing: '-0.23px', fontWeight: '500' }],
       },
       fontFamily: {
         'spartan': ['Spartan', 'sans-serif'],
