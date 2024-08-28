@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +14,12 @@ import { Button5Component } from './components/buttons/button5/button5.component
 import { Button6Component } from './components/buttons/button6/button6.component';
 import { TextFieldComponent } from './components/inputs/text-field/text-field.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { IssueDateComponent } from './components/issue-date/issue-date.component';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,15 +31,11 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     Button5Component,
     Button6Component,
     TextFieldComponent,
-    DropdownComponent
+    DropdownComponent,
+    IssueDateComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [
-    provideClientHydration()
-  ],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, MatDatepickerModule, MatNativeDateModule, FormsModule],
+  providers: [provideClientHydration(), provideAnimationsAsync()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
