@@ -1,4 +1,4 @@
-<div class="w-full">
+<div class="w-full relative">
   <div>
     <p class="text-body1 dark:text-accent-light text-accent-medium">
       Payment Terms
@@ -16,8 +16,9 @@
     <div><img src="assets/icon-arrow-down.svg" class="w-[10px] h-[5px]" /></div>
   </div>
 
+  <!-- This div will now appear near its trigger -->
   <div
-    class="the-shaddow w-[88%] rounded-lg bg-accent-light dark:bg-transparent mt-6 flex flex-col gap-[1px] absolute bottom-[40px]"
+    class="the-shaddow w-full lg:w-[88%] rounded-lg bg-accent-light dark:bg-transparent mt-2 flex flex-col gap-[1px] absolute"
     [ngClass]="{ hidden: !isDroping }"
     (click)="toggleDroping()"
   >
