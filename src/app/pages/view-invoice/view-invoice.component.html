@@ -1,12 +1,12 @@
 <div
-  class="px-6 md:px-12 lg:px-[252px] h-[600px] md:h-auto lg:h-[620px] overflow-y-scroll py-8 md:py-14 lg:py-[72px]"
+  class="px-6 md:px-12 lg:px-[252px] h-[600px] md:h-auto lg:h-[620px] overflow-y-scroll py-8 md:py-14 lg:py-[72px] mb-10"
 >
-  <div class="inline-flex items-center gap-3 cursor-pointer">
+  <a routerLink="/home" class="inline-flex items-center gap-3 cursor-pointer">
     <div><img src="assets/icon-arrow-left.svg" alt="icon-left" /></div>
     <div class="pt-3">
       <p class="text-body1 font-bold dark:text-white">Go back</p>
     </div>
-  </div>
+  </a>
   <!-- header of invoice for mobile -->
   <div
     class="p-6 bg-white dark:bg-secondary-dark flex items-center justify-between md:hidden rounded-lg"
@@ -39,7 +39,9 @@
     </div>
 
     <div class="md:flex items-center justify-between gap-2 hidden">
-      <app-button3></app-button3>
+      <div (click)="editInvoiceTrigger()">
+        <app-button3></app-button3>
+      </div>
       <app-button5></app-button5>
       <app-button2></app-button2>
     </div>
@@ -252,7 +254,138 @@
 <div
   class="flex items-center justify-between md:hidden bg-white dark:bg-secondary-dark fixed bottom-0 w-[100%] py-[22px] px-6"
 >
-  <app-button3></app-button3>
+  <a routerLink="/edit/:invoice_id">
+    <app-button3></app-button3>
+  </a>
   <app-button5></app-button5>
   <app-button2></app-button2>
+</div>
+
+<!-- this is the slide div with animation from left to where it need to be -->
+<div
+  [@slideInOut]="invoiceEditSlide ? 'in' : 'out'"
+  class="w-[85%] lg:w-[719px] h-full bg-white dark:bg-secondary-dark absolute hidden md:block md:top-[80px] lg:top-0 lg:left-10 z-0 rounded-r-[20px]"
+  (click)="closeInvoice()"
+>
+  <div class="w-full h-full overflow-y-scroll md:p-14 lg:pl-[84px]">
+    <div>
+      <p class="text-2xl font-bold dark:text-white">
+        Edit <span class="text-accent-muted">#</span>XM9141
+      </p>
+    </div>
+
+    <div>
+      <p class="text-body1 font-bold text-primary">Bill From</p>
+    </div>
+
+    <div>
+      <app-text-field [text]="'Street Address'"></app-text-field>
+    </div>
+
+    <div class="flex justify-between items-center mt-6">
+      <div class="w-[32%]">
+        <app-text-field [text]="'City'"></app-text-field>
+      </div>
+
+      <div class="w-[32%]">
+        <app-text-field [text]="'Post Code'"></app-text-field>
+      </div>
+
+      <div class="w-[32%]">
+        <app-text-field [text]="'Country'"></app-text-field>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <p class="text-body1 font-bold text-primary">Bill From</p>
+    </div>
+
+    <div class="mt-6">
+      <app-text-field [text]="'Client\’s Name'"></app-text-field>
+    </div>
+
+    <div class="mt-6">
+      <app-text-field [text]="'Client’s Email'"></app-text-field>
+    </div>
+
+    <div class="mt-6">
+      <app-text-field [text]="'Street Address'"></app-text-field>
+    </div>
+
+    <div class="flex justify-between items-center mt-6">
+      <div class="w-[32%]">
+        <app-text-field [text]="'City'"></app-text-field>
+      </div>
+
+      <div class="w-[32%]">
+        <app-text-field [text]="'Post Code'"></app-text-field>
+      </div>
+
+      <div class="w-[32%]">
+        <app-text-field [text]="'Country'"></app-text-field>
+      </div>
+    </div>
+
+    <div class="mt-6 flex justify-between">
+      <div class="w-[48%]">
+        <app-issue-date></app-issue-date>
+      </div>
+      <div class="w-[48%]">
+        <app-dropdown></app-dropdown>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <app-text-field [text]="'Project Description'"></app-text-field>
+    </div>
+
+    <div class="mt-[66px]">
+      <p class="text-[18px] font-bold leading-8 text-itemList">Item List</p>
+    </div>
+
+    <div class="mt-6 w-full flex justify-between items-end">
+      <div class="w-[29%] mt-6">
+        <app-text-field [text]="'Item Name'"></app-text-field>
+      </div>
+      <div class="w-[14%]">
+        <div class="mt-6">
+          <app-text-field [text]="'Qty.'"></app-text-field>
+        </div>
+      </div>
+      <div class="w-[24%]">
+        <div class="mt-6">
+          <app-text-field [text]="'Price'"></app-text-field>
+        </div>
+      </div>
+      <div class="w-[14%] flex flex-col justify-start gap-5 h-[85px]">
+        <p class="text-body1 dark:text-accent-light text-accent-medium">
+          Total
+        </p>
+        <p
+          class="text-body1 dark:text-accent-light text-accent-muted !font-bold"
+        >
+          400.00
+        </p>
+      </div>
+      <div class="w-[14%] h-[50px] flex justify-end pr-1 cursor-pointer">
+        <img
+          class="w-[16px] h-[20px]"
+          src="assets/icon-delete.svg"
+          alt="icon-delete"
+        />
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <app-button6></app-button6>
+    </div>
+    <div
+      class="flex justify-end items-center bg-white dark:bg-secondary-dark bottom-0 w-full py-[22px]"
+    >
+      <div class="flex justify-end items-center gap-3">
+        <app-button3 [text]="'Discard'"></app-button3>
+        <app-button2 [text]="'Save Changes'"></app-button2>
+      </div>
+    </div>
+  </div>
 </div>

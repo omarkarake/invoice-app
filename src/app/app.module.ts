@@ -55,6 +55,8 @@ import { EditComponent } from './components/edit/edit.component';
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'view/:invoice_id', component: ViewInvoiceComponent },
+      { path: 'edit/:invoice_id', component: EditComponent },
+      { path: 'new/:invoice_id', component: InvoiceCreationComponent },
     ]),
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],

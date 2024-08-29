@@ -36,7 +36,8 @@ export class HomeComponent {
   constructor() {}
 
   newInvoiceTrigger() {
-    this.invoiceCreateSlide = true;
+    this.invoiceCreateSlide = !this.invoiceCreateSlide;
+    console.log('newInvoiceTrigger');
   }
 
   closeInvoice() {

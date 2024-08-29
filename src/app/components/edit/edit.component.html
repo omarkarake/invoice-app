@@ -1,12 +1,15 @@
 <div
   class="px-6 md:px-12 lg:px-[252px] h-[600px] md:h-auto lg:h-[620px] overflow-y-scroll py-8 md:py-14 lg:py-[72px]"
 >
-  <div class="inline-flex items-center gap-3 cursor-pointer">
+  <a
+    routerLink="/view/:invoice_id"
+    class="inline-flex items-center gap-3 cursor-pointer"
+  >
     <div><img src="assets/icon-arrow-left.svg" alt="icon-left" /></div>
     <div class="pt-3">
       <p class="text-body1 font-bold dark:text-white">Go back</p>
     </div>
-  </div>
+  </a>
 
   <!-- form for creating invoice -->
   <div>
@@ -122,6 +125,8 @@
 <div
   class="flex items-center justify-end gap-3 md:hidden bg-white dark:bg-secondary-dark fixed bottom-0 w-[100%] py-[22px] px-6"
 >
-  <app-button3 [text]="'Cancel'"></app-button3>
+  <a routerLink="/view/:id">
+    <app-button3 [text]="'Cancel'"></app-button3>
+  </a>
   <app-button2 [text]="'Save Changes'"></app-button2>
 </div>
