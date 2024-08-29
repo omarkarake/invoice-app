@@ -32,6 +32,7 @@ import {
 })
 export class ViewInvoiceComponent {
   invoiceEditSlide: boolean = false;
+  isModalOpen = false;
 
   constructor() {}
 
@@ -41,5 +42,25 @@ export class ViewInvoiceComponent {
 
   closeInvoice() {
     this.invoiceEditSlide = false;
+  }
+
+  openModal() {
+    this.isModalOpen = true;
+    setTimeout(() => {
+      const modal = document.querySelector('.modal');
+      if (modal) {
+        modal.classList.add('show-modal');
+      }
+    }, 10); // Delay to trigger the animation
+  }
+
+  closeModal() {
+    const modal = document.querySelector('.modal');
+    if (modal) {
+      modal.classList.remove('show-modal');
+    }
+    setTimeout(() => {
+      this.isModalOpen = false;
+    }, 300); // Match the transition duration
   }
 }

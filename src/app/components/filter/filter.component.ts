@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class FilterComponent {
   hoverIndex: number | null = null;
-  isDroping = true;
+  isDroping = false;
 
   filters = [
     { name: 'Draft', checked: false },
