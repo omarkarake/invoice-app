@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-button2',
   templateUrl: './button2.component.html',
-  styleUrl: './button2.component.css'
+  styleUrl: './button2.component.css',
 })
 export class Button2Component {
-
+  @Input() text: string = 'Mark as Paid';
 }

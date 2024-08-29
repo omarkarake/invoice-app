@@ -25,6 +25,7 @@ import { RouterModule } from '@angular/router';
 import { ViewInvoiceComponent } from './pages/view-invoice/view-invoice.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { InvoiceCreationComponent } from './components/invoice-creation/invoice-creation.component';
+import { EditComponent } from './components/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { InvoiceCreationComponent } from './components/invoice-creation/invoice-
     ViewInvoiceComponent,
     NavigationComponent,
     InvoiceCreationComponent,
+    EditComponent,
   ],
   imports: [
     BrowserModule,
