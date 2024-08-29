@@ -24,6 +24,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { RouterModule } from '@angular/router';
 import { ViewInvoiceComponent } from './pages/view-invoice/view-invoice.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { InvoiceCreationComponent } from './components/invoice-creation/invoice-creation.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     HomeComponent,
     ViewInvoiceComponent,
     NavigationComponent,
+    InvoiceCreationComponent,
   ],
   imports: [
     BrowserModule,

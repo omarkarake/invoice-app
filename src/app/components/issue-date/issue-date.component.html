@@ -1,25 +1,29 @@
-<div class="w-[240px]">
-    <div
-      class="dark:bg-button3-dark py-[17px] pl-5 pr-[15px] border rounded-[4px] flex justify-between items-center cursor-pointer"
-      [ngClass]="{
-        'border-primary-light': isDroping,
-        'border-accent-light dark:border-secondary-dark': !isDroping
-      }"
-      (click)="toggleDroping(picker)"
-    >
-      <div>
-        <p class="text-body1 !font-bold dark:text-white">
-          {{ selectedDate | date : "dd MMM yyyy" }}
-        </p>
-      </div>
-      <div><img src="assets/icon-calendar.svg" class="w-[16px] h-[16px]" /></div>
-    </div>
-    <input
-      matInput
-      [matDatepicker]="picker"
-      [(ngModel)]="selectedDate"
-      style="visibility: hidden"
-    />
-    <mat-datepicker #picker (closed)="onDateSelected()"></mat-datepicker>
+<div class="w-full">
+  <div>
+    <p class="text-body1 dark:text-accent-light text-accent-medium">
+      Invoice Date
+    </p>
   </div>
-  
+  <div
+    class="dark:bg-button3-dark py-[17px] pl-5 pr-[15px] border rounded-[4px] flex justify-between items-center cursor-pointer"
+    [ngClass]="{
+      'border-primary-light': isDroping,
+      'border-accent-light dark:border-secondary-dark': !isDroping
+    }"
+    (click)="toggleDroping(picker)"
+  >
+    <div>
+      <p class="text-body1 !font-bold dark:text-white">
+        {{ selectedDate | date : "dd MMM yyyy" }}
+      </p>
+    </div>
+    <div><img src="assets/icon-calendar.svg" class="w-[16px] h-[16px]" /></div>
+  </div>
+  <input
+    matInput
+    [matDatepicker]="picker"
+    [(ngModel)]="selectedDate"
+    style="visibility: hidden"
+  />
+  <mat-datepicker #picker (closed)="onDateSelected()"></mat-datepicker>
+</div>

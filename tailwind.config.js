@@ -51,6 +51,12 @@ module.exports = {
         cardPending: {
           DEFAULT: "#FF8F00",
         },
+        cardList: {
+          DEFAULT: "#1E2139",
+        },
+        itemList: {
+          DEFAULT: "#777F98",
+        },
       },
       fontSize: {
         'h1': ['32px', { lineHeight: '36px', letterSpacing: '-1px', fontWeight: '700' }], 

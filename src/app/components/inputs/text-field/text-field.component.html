@@ -1,5 +1,10 @@
-<div class="w-[240px] dark:bg-button3-dark py-[17px] px-5 border rounded-[4px]"
-[ngClass]="{'border-primary-light': isTyping, 'border-accent-light': !isTyping}"
->
-    <input class="w-full bg-transparent text-body1 !font-bold border-none outline-none dark:text-white" type="text" (focus)="toggleIsActive()" (blur)="toggleIsActive()">
+<div>
+    <div>
+        <p class="text-body1 dark:text-accent-light text-accent-medium">{{ text}}</p>
+    </div>
+    <div class="w-full dark:bg-button3-dark py-[17px] px-5 border rounded-[4px]"
+    [ngClass]="{'border-primary-light': isTyping, 'border-accent-light': !isTyping}"
+    >
+        <input class="w-full bg-transparent text-body1 !font-bold border-none outline-none dark:text-white" type="text" (focus)="toggleIsActive()" (blur)="toggleIsActive()">
+    </div>
 </div>
