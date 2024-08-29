@@ -17,16 +17,7 @@
       </div>
     </div>
     <div class="flex items-center gap-[18px]">
-      <div class="inline-flex items-center gap-3 pt-2">
-        <div>
-          <p class="text-body1 font-bold dark:text-white">
-            Filter <span class="hidden md:inline-block">by status</span>
-          </p>
-        </div>
-        <div class="pb-2">
-          <img src="assets/icon-arrow-down.svg" />
-        </div>
-      </div>
+      <app-filter></app-filter>
       <div class="hidden md:block" (click)="newInvoiceTrigger()">
         <app-button1></app-button1>
       </div>

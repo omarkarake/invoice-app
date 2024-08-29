@@ -26,6 +26,7 @@ import { ViewInvoiceComponent } from './pages/view-invoice/view-invoice.componen
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { InvoiceCreationComponent } from './components/invoice-creation/invoice-creation.component';
 import { EditComponent } from './components/edit/edit.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { EditComponent } from './components/edit/edit.component';
     NavigationComponent,
     InvoiceCreationComponent,
     EditComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,

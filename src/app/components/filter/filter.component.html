@@ -1,0 +1,42 @@
+<div class="inline relative">
+    <div
+      class="inline-flex items-center gap-3 pt-2 cursor-pointer"
+      (click)="toggleDroping()"
+    >
+      <div>
+        <p class="text-body1 font-bold dark:text-white">
+          Filter <span class="hidden md:inline-block">by status</span>
+        </p>
+      </div>
+      <div class="pb-3">
+        <img src="assets/icon-arrow-down.svg" />
+      </div>
+    </div>
+  
+    <div
+      class="the-shaddow w-[150%] rounded-lg bg-white dark:bg-secondary-darker mt-2 flex flex-col absolute p-4 -left-8"
+      [ngClass]="{ hidden: !isDroping }"
+    >
+      <div
+        *ngFor="let filter of filters; let i = index"
+        class="flex items-center cursor-pointer"
+        (mouseover)="setHoverIndex(i)"
+        (mouseleave)="setHoverIndex(null)"
+        (click)="activateFilter(i)"
+      >
+        <div
+          class="w-4 h-4 rounded-sm bg-accent-light flex justify-center items-center"
+          [ngClass]="{
+            'border-primary border-[1px]': hoverIndex === i,
+            'bg-primary': filter.checked
+          }"
+        >
+          <div *ngIf="filter.checked">
+            <img src="assets/icon-check.svg" alt="icon-check" />
+          </div>
+        </div>
+        <p class="text-body1 dark:text-white leading-[10px] font-bold pt-3 pl-3">{{ filter.name }}</p>
+      </div>
+    </div>
+  </div>
+  

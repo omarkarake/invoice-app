@@ -32,6 +32,7 @@ import {
 })
 export class HomeComponent {
   invoiceCreateSlide: boolean = false;
+  isDroping = false;
 
   constructor() {}
 
@@ -42,5 +43,10 @@ export class HomeComponent {
 
   closeInvoice() {
     this.invoiceCreateSlide = false;
+  }
+
+  toggleDroping() {
+    this.isDroping = !this.isDroping;
+    console.log('isDroping', this.isDroping);
   }
 }
