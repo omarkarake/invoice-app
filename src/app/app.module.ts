@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import {
   BrowserModule,
   provideClientHydration,
@@ -28,6 +28,9 @@ import { InvoiceCreationComponent } from './components/invoice-creation/invoice-
 import { EditComponent } from './components/edit/edit.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { StoreModule } from '@ngrx/store';
+import { invoiceReducer } from './store/reducers/invoices.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -54,6 +57,7 @@ import { StoreModule } from '@ngrx/store';
     MatDatepickerModule,
     MatNativeDateModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
@@ -61,7 +65,17 @@ import { StoreModule } from '@ngrx/store';
       { path: 'edit/:invoice_id', component: EditComponent },
       { path: 'new/:invoice_id', component: InvoiceCreationComponent },
     ]),
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({
+      appState: invoiceReducer,
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: !isDevMode(), // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+      trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
+      traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
+      connectInZone: true, // If set to true, the connection is established within the Angular zone
+    }),
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
