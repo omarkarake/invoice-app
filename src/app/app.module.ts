@@ -27,6 +27,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { InvoiceCreationComponent } from './components/invoice-creation/invoice-creation.component';
 import { EditComponent } from './components/edit/edit.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { FilterComponent } from './components/filter/filter.component';
       { path: 'edit/:invoice_id', component: EditComponent },
       { path: 'new/:invoice_id', component: InvoiceCreationComponent },
     ]),
+    StoreModule.forRoot({}, {}),
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
