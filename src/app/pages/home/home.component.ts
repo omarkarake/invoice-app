@@ -14,6 +14,7 @@ import {
   selectInvoiceState,
 } from '../../store/selectors/invoice.selector';
 import { Store } from '@ngrx/store';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -39,10 +40,12 @@ import { Store } from '@ngrx/store';
   ],
 })
 export class HomeComponent implements OnInit {
-  invoiceCreateSlide: boolean = false;
+  invoiceCreateSlide: boolean = true;
   isDroping = false;
   invoices$: Observable<Invoice[]>;
   invoiceDatas: Invoice[] = [];
+
+  invoiceForm!: FormGroup;
 
   constructor(
     private store: Store<{
@@ -53,18 +56,34 @@ export class HomeComponent implements OnInit {
   }
 
   newInvoiceTrigger() {
-    this.invoiceCreateSlide = !this.invoiceCreateSlide;
+    // this.invoiceCreateSlide = !this.invoiceCreateSlide;
     console.log('newInvoiceTrigger');
+  }
+
+  // Getter for streetAddress FormControl
+  get streetAddressControl(): FormControl {
+    return this.invoiceForm.get('streetAddress') as FormControl;
   }
 
   ngOnInit(): void {
     this.store.select(selectFilteredInvoices).subscribe((data) => {
       this.invoiceDatas = data;
     });
+    this.invoiceForm = new FormGroup({
+      streetAddress: new FormControl('', Validators.required),
+      // Add other form controls as needed
+    });
+  }
+
+  onSubmit(): void {
+    if (this.invoiceForm.valid) {
+      // Handle form submission
+      console.log(this.invoiceForm.value);
+    }
   }
 
   closeInvoice() {
-    this.invoiceCreateSlide = false;
+    // this.invoiceCreateSlide = false;
   }
 
   toggleDroping() {
