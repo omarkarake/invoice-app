@@ -479,7 +479,14 @@
         </div>
       </div>
       <div class="mt-6">
-        <app-text-field [text]="'Project Description'"></app-text-field>
+        <app-text-field
+          [control]="projectDescriptionControl"
+          [isValid]="
+            projectDescriptionControl.valid ||
+            projectDescriptionControl.untouched
+          "
+          [text]="'Project Description'"
+        ></app-text-field>
       </div>
       <div class="mt-[66px]">
         <p class="text-[18px] font-bold leading-8 text-itemList">Item List</p>

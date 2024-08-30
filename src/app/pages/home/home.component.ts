@@ -109,6 +109,10 @@ export class HomeComponent implements OnInit {
     return this.invoiceForm.get('paymentTerms') as FormControl;
   }
 
+  get projectDescriptionControl(): FormControl {
+    return this.invoiceForm.get('projectDescription') as FormControl;
+  }
+
   ngOnInit(): void {
     this.store.select(selectFilteredInvoices).subscribe((data) => {
       this.invoiceDatas = data;
@@ -126,6 +130,7 @@ export class HomeComponent implements OnInit {
       clientCountry: new FormControl('', Validators.required),
       InvoiceDate: new FormControl('', Validators.required),
       paymentTerms: new FormControl('', Validators.required),
+      projectDescription: new FormControl('', Validators.required),
       // Add other form controls as needed
     });
   }
