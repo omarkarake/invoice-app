@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -6,6 +6,10 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { Observable } from 'rxjs';
+import { Invoice } from '../../models/invoice.model';
+import { selectInvoiceState } from '../../store/selectors/invoice.selector';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-home',
@@ -30,15 +34,26 @@ import {
     ]),
   ],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   invoiceCreateSlide: boolean = false;
   isDroping = false;
+  invoices$: Observable<Invoice[]>;
+  invoiceDatas: Invoice[] = [];
 
-  constructor() {}
+  constructor(private store: Store<{ appState: { invoice: Invoice[] } }>) {
+    this.invoices$ = this.store.select(selectInvoiceState);
+  }
 
   newInvoiceTrigger() {
     this.invoiceCreateSlide = !this.invoiceCreateSlide;
     console.log('newInvoiceTrigger');
+  }
+
+  ngOnInit(): void {
+    this.invoices$.subscribe((data) => {
+      this.invoiceDatas = data;
+    });
+    console.log('invoiceDatas', this.invoiceDatas);
   }
 
   closeInvoice() {
