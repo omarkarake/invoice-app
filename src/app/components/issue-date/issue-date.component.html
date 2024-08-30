@@ -23,7 +23,8 @@
     matInput
     [matDatepicker]="picker"
     [(ngModel)]="selectedDate"
+    (ngModelChange)="onDateSelected()"
     style="visibility: hidden"
   />
-  <mat-datepicker #picker (closed)="onDateSelected()"></mat-datepicker>
+  <mat-datepicker #picker></mat-datepicker>
 </div>

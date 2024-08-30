@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-issue-date',
   templateUrl: './issue-date.component.html',
-  styleUrl: './issue-date.component.css'
+  styleUrls: ['./issue-date.component.css']
 })
 export class IssueDateComponent {
   isDroping = false;
@@ -20,5 +20,6 @@ export class IssueDateComponent {
 
   onDateSelected(): void {
     this.isDroping = false; // Close the dropdown when a date is selected
+    console.log('Selected Date:', this.selectedDate);
   }
 }
