@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -14,7 +14,7 @@ import {
   selectInvoiceState,
 } from '../../store/selectors/invoice.selector';
 import { Store } from '@ngrx/store';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -39,7 +39,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
     ]),
   ],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, DoCheck {
   invoiceCreateSlide: boolean = true;
   isDroping = false;
   invoices$: Observable<Invoice[]>;
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private store: Store<{
       appState: { invoice: Invoice[]; filteredInvoice: string[] };
-    }>
+    }>, private fb: FormBuilder
   ) {
     this.invoices$ = this.store.select(selectInvoiceState);
   }
@@ -113,6 +113,10 @@ export class HomeComponent implements OnInit {
     return this.invoiceForm.get('projectDescription') as FormControl;
   }
 
+  get items(): FormArray {
+    return this.invoiceForm.get('items') as FormArray;
+  }
+
   ngOnInit(): void {
     this.store.select(selectFilteredInvoices).subscribe((data) => {
       this.invoiceDatas = data;
@@ -131,8 +135,38 @@ export class HomeComponent implements OnInit {
       InvoiceDate: new FormControl('', Validators.required),
       paymentTerms: new FormControl('', Validators.required),
       projectDescription: new FormControl('', Validators.required),
+      items: this.fb.array([this.createItem()])
       // Add other form controls as needed
     });
+  }
+
+  ngDoCheck(): void {
+    console.log('invoiceForm', this.invoiceForm.value);
+  }
+
+  createItem(): FormGroup {
+    return this.fb.group({
+      itemName: ['', Validators.required],
+      quantity: [0, [Validators.required, Validators.min(1)]],
+      price: [0, [Validators.required, Validators.min(0)]],
+      total: [{ value: 0, disabled: true }]
+    });
+  }
+
+  addItem(): void {
+    this.items.push(this.createItem());
+  }
+
+  removeItem(index: number): void {
+    this.items.removeAt(index);
+  }
+
+  calculateTotal(index: number): void {
+    const item = this.items.at(index);
+    const quantity = item.get('quantity')?.value || 0;
+    const price = item.get('price')?.value || 0;
+    const total = quantity * price;
+    item.get('total')?.setValue(total);
   }
 
   onSubmit(): void {
