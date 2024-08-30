@@ -39,7 +39,7 @@ import { Store } from '@ngrx/store';
   ],
 })
 export class HomeComponent implements OnInit {
-  invoiceCreateSlide: boolean = false;
+  invoiceCreateSlide: boolean = true;
   isDroping = false;
   invoices$: Observable<Invoice[]>;
   invoiceDatas: Invoice[] = [];
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
   }
 
   newInvoiceTrigger() {
-    this.invoiceCreateSlide = !this.invoiceCreateSlide;
+    this.invoiceCreateSlide = true;
     console.log('newInvoiceTrigger');
   }
 
@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
   }
 
   closeInvoice() {
-    this.invoiceCreateSlide = false;
+    this.invoiceCreateSlide = true;
   }
 
   toggleDroping() {
