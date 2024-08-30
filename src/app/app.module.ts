@@ -19,7 +19,7 @@ import { IssueDateComponent } from './components/issue-date/issue-date.component
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { RouterModule } from '@angular/router';
 import { ViewInvoiceComponent } from './pages/view-invoice/view-invoice.component';
@@ -56,6 +56,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
