@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-issue-date',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./issue-date.component.css']
 })
 export class IssueDateComponent {
+  @Input() control: FormControl = new FormControl('');
   isDroping = false;
   selectedDate: Date = new Date();
 
