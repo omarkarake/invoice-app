@@ -5,14 +5,14 @@
     </p>
   </div>
   <div
-    class="dark:bg-button3-dark py-[17px] pl-5 pr-[15px] border rounded-[4px] flex justify-between items-center cursor-pointer"
+    class="dark:bg-button3-dark py-[10px] pl-5 pr-[15px] border rounded-[4px] flex justify-between items-center cursor-pointer"
     [ngClass]="{
       'border-primary-light': isDroping,
       'border-accent-light dark:border-secondary-dark': !isDroping
     }"
     (click)="toggleDroping()"
   >
-    <div><p class="text-body1 !font-bold dark:text-white">Net 30 Days</p></div>
+    <div><p class="text-body1 !font-bold dark:text-white pt-2">Net 30 Days</p></div>
     <div><img src="assets/icon-arrow-down.svg" class="w-[10px] h-[5px]" /></div>
   </div>
 
