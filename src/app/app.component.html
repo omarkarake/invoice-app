@@ -1,10 +1,10 @@
 <div
-  class="w-full lg:min-h-screen h-auto lg:flex bg-background-light dark:bg-background-dark"
+  class="w-full lg:min-h-screen h-auto lg:flex bg-background-light dark:bg-background-dark relative"
 >
-  <div class="w-full lg:w-[7.15%] h-[72px] md:h-[80px] lg:h-dvh z-10">
+  <div class="w-full lg:w-[7.15%] h-[72px] md:h-[80px] lg:h-dvh z-10 sticky">
     <app-navigation></app-navigation>
   </div>
-  <div class="w-full lg:w-[93.85%] h-auto">
+  <div class="w-full lg:w-[93.85%] h-screen overflow-y-scroll">
     <router-outlet></router-outlet>
   </div>
 </div>

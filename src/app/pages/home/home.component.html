@@ -38,7 +38,7 @@
 
   <!-- invoice list -->
   <!-- for mobile and tablet -->
-  <div class="h-[520px] overflow-y-scroll mt-3">
+  <div class="mt-3">
     <!-- reserved codes for mobile invoices -->
     <!-- <div class="md:hidden">
       <div class="p-6 bg-white dark:bg-secondary-dark mt-8 rounded-lg">
@@ -144,7 +144,7 @@
     </div> -->
 
     <div *ngFor="let invoice of invoiceDatas" class="md:hidden mt-4">
-      <div class="p-6 bg-white dark:bg-secondary-dark mt-8 rounded-lg">
+      <div class="px-6 py-4 bg-white dark:bg-secondary-dark mt-8 rounded-lg">
         <div class="h-full flex justify-between items-center">
           <div>
             <p class="text-body1 dark:text-white !font-bold">
@@ -297,7 +297,7 @@
     <!-- invoice list for desktop -->
     <div
       *ngFor="let invoice of invoiceDatas"
-      class="hidden mt-4 bg-white dark:bg-secondary-dark px-6 py-7 rounded-lg md:flex items-center justify-between"
+      class="hidden hover:shadow-sm hover:shadow-primary mt-4 bg-white dark:bg-secondary-dark px-6 py-3 rounded-lg md:flex items-center justify-between cursor-pointer"
     >
       <div class="pt-3">
         <p class="text-body1 dark:text-white !font-bold">
