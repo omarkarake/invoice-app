@@ -6,9 +6,13 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Invoice } from '../../models/invoice.model';
-import { selectInvoiceState } from '../../store/selectors/invoice.selector';
+import {
+  selectFilteredInvoice,
+  selectFilteredInvoices,
+  selectInvoiceState,
+} from '../../store/selectors/invoice.selector';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -40,7 +44,11 @@ export class HomeComponent implements OnInit {
   invoices$: Observable<Invoice[]>;
   invoiceDatas: Invoice[] = [];
 
-  constructor(private store: Store<{ appState: { invoice: Invoice[] } }>) {
+  constructor(
+    private store: Store<{
+      appState: { invoice: Invoice[]; filteredInvoice: string[] };
+    }>
+  ) {
     this.invoices$ = this.store.select(selectInvoiceState);
   }
 
@@ -50,10 +58,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.invoices$.subscribe((data) => {
+    this.store.select(selectFilteredInvoices).subscribe((data) => {
       this.invoiceDatas = data;
     });
-    console.log('invoiceDatas', this.invoiceDatas);
   }
 
   closeInvoice() {

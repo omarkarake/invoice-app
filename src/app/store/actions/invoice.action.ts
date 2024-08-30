@@ -5,3 +5,8 @@ export const loadInitialInvoice = createAction(
   '[Invoice] Load Initial Invoice',
   props<{ invoice: Invoice[] }>()
 );
+
+export const filterInvoice = createAction(
+  '[Invoice] Filter Invoice',
+  props<{ filteredString: string }>()
+);
