@@ -65,12 +65,57 @@ export class HomeComponent implements OnInit {
     return this.invoiceForm.get('streetAddress') as FormControl;
   }
 
+  get cityControl(): FormControl {
+    return this.invoiceForm.get('city') as FormControl;
+  }
+
+  get postCodeControl(): FormControl {
+    return this.invoiceForm.get('postCode') as FormControl;
+  }
+
+  get countryControl(): FormControl {
+    return this.invoiceForm.get('country') as FormControl;
+  }
+
+  get clientNameControl(): FormControl {
+    return this.invoiceForm.get('clientName') as FormControl;
+  }
+
+  get clientEmailControl(): FormControl {
+    return this.invoiceForm.get('clientEmail') as FormControl;
+  }
+  
+  get clientStreetAdressControl(): FormControl {
+    return this.invoiceForm.get('ClientstreetAddress') as FormControl;
+  }
+
+  get clientCityControl(): FormControl {
+    return this.invoiceForm.get('clientCity') as FormControl;
+  }
+
+  get clientPostCodeControl(): FormControl {
+    return this.invoiceForm.get('clientPostCode') as FormControl;
+  }
+
+  get clientCountryControl(): FormControl {
+    return this.invoiceForm.get('clientCountry') as FormControl;
+  }
+
   ngOnInit(): void {
     this.store.select(selectFilteredInvoices).subscribe((data) => {
       this.invoiceDatas = data;
     });
     this.invoiceForm = new FormGroup({
       streetAddress: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
+      postCode: new FormControl('', Validators.required),
+      country: new FormControl('', Validators.required),
+      clientName: new FormControl('', Validators.required),
+      clientEmail: new FormControl('', Validators.required),
+      ClientstreetAddress: new FormControl('', Validators.required),
+      clientCity: new FormControl('', Validators.required),
+      clientPostCode: new FormControl('', Validators.required),
+      clientCountry: new FormControl('', Validators.required),
       // Add other form controls as needed
     });
   }
