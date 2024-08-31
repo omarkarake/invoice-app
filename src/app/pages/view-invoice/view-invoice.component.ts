@@ -84,7 +84,7 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    console.log('formData: ', this.invoiceForm.value);
+    // console.log('formData: ', this.invoiceForm.value);
   }
 
   initializeForm(invoice: Invoice) {
@@ -309,7 +309,9 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
       // Handle form submission
       console.log('formData after submission: ', formData);
       this.invoiceId &&
-      this.store.dispatch(updateSingleInvoice({ updatedInvoice: formData, id: this.invoiceId }));
+        this.store.dispatch(
+          updateSingleInvoice({ updatedInvoice: formData, id: this.invoiceId })
+        );
     }
   }
 }

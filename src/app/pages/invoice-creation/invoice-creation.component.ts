@@ -64,7 +64,7 @@ export class InvoiceCreationComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    console.log('form value: ', this.invoiceForm.value);
+    // console.log('form value: ', this.invoiceForm.value);
   }
 
   // Getter for form controls
