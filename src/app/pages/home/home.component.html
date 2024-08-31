@@ -297,7 +297,7 @@
       </div>
     </div>
   </div> -->
-  <div *ngIf="invoiceCreateSlide" class="backdrop z-0" (click)="invoiceCreateSlide = false"></div>
+  <div *ngIf="invoiceCreateSlide" class="backdrop z-0" (click)="closeInvoice()"></div>
     <!-- invoice list for desktop -->
     <div
       *ngFor="let invoice of invoiceDatas"

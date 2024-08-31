@@ -37,7 +37,7 @@ import { deleteInvoice, updateInvoiceStatus } from '../../store/actions/invoice.
   ],
 })
 export class ViewInvoiceComponent implements OnInit {
-  invoiceEditSlide: boolean = false;
+  invoiceEditSlide: boolean = true;
   isModalOpen = false;
   invoiceId: string | null = null;
   invoice$: Observable<Invoice | null | undefined> | null = null;
@@ -62,11 +62,11 @@ export class ViewInvoiceComponent implements OnInit {
   }
 
   editInvoiceTrigger() {
-    this.invoiceEditSlide = !this.invoiceEditSlide;
+    // this.invoiceEditSlide = !this.invoiceEditSlide;
   }
 
   closeInvoice() {
-    this.invoiceEditSlide = false;
+    // this.invoiceEditSlide = false;
   }
 
   markAsPaid() {
