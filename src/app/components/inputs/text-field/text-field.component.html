@@ -21,6 +21,7 @@
       [formControl]="control"
       (focus)="toggleIsActive()"
       (blur)="toggleIsActive()"
+      (input)="onInput($event)"
     />
   </div>
 </div>

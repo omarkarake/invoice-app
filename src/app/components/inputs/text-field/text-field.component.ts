@@ -28,15 +28,18 @@ export class TextFieldComponent implements ControlValueAccessor {
     this.isTyping = !this.isTyping;
   }
 
-  onInput(value: string): void {
+  onInput(event: Event): void {
+    const inputElement = event.target as HTMLInputElement; // Cast to HTMLInputElement
+    const value = inputElement.value; // Now TypeScript knows this has a 'value' property
     this.value = value;
     this.onChange(value);
+    this.control.setValue(value); // Syncing the control value
   }
 
-  writeValue(value: string): void {
-    this.value = value;
+  writeValue(value: string | null): void {
+    this.value = value || ''; // Handle potential null values
     if (this.control) {
-      this.control.setValue(value);
+      this.control.setValue(this.value, { emitEvent: false });
     }
   }
 
