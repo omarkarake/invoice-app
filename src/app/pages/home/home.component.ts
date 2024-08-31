@@ -160,7 +160,7 @@ export class HomeComponent implements OnInit, DoCheck {
       itemName: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(1)]],
       price: [0, [Validators.required, Validators.min(0)]],
-      total: [{ value: 0 }],
+      total: [{ value: 0, disabled: true }],
     });
   }
 
@@ -174,8 +174,8 @@ export class HomeComponent implements OnInit, DoCheck {
 
   calculateTotal(index: number): void {
     const item = this.items.at(index);
-    const quantity = item.get('quantity')?.value || 0;
-    const price = item.get('price')?.value || 0;
+    const quantity = Number(item.get('quantity')?.value) || 0;
+    const price = Number(item.get('price')?.value) || 0;
     const total = quantity * price;
     item.get('total')?.setValue(total);
   }
