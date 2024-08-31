@@ -552,7 +552,9 @@
       <div
         class="flex items-center justify-between bg-white dark:bg-secondary-dark bottom-0 w-full py-[22px]"
       >
-        <app-button3 [text]="'Discard'"></app-button3>
+        <div (click)="discardForm()">
+          <app-button3 [text]="'Discard'"></app-button3>
+        </div>
         <div class="flex items-center gap-3">
           <button type="button" (click)="invoiceForm.get('status')?.setValue('draft'); invoiceForm.markAsDirty(); invoiceForm.markAsTouched(); onSubmit()">
             <app-button4></app-button4>

@@ -177,6 +177,10 @@ export class HomeComponent implements OnInit, DoCheck {
     }
   }
 
+  discardForm(): void {
+    this.invoiceForm.reset();
+  }
+
   closeInvoice() {
     // this.invoiceCreateSlide = false;
   }
