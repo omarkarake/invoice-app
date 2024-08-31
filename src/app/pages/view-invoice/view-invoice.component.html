@@ -2,7 +2,11 @@
   class="px-6 md:px-12 lg:px-[252px] h-[600px] md:h-auto lg:h-[620px] py-8 md:py-14 mb-10"
   *ngIf="invoice$ | async as invoice"
 >
-  <div *ngIf="invoiceEditSlide" class="backdrop z-0" (click)="closeInvoice()"></div>
+  <div
+    *ngIf="invoiceEditSlide"
+    class="backdrop z-0"
+    (click)="closeInvoice()"
+  ></div>
   <a routerLink="/home" class="inline-flex items-center gap-3 cursor-pointer">
     <div><img src="assets/icon-arrow-left.svg" alt="icon-left" /></div>
     <div class="pt-3">
@@ -11,41 +15,42 @@
   </a>
   <!-- header of invoice for mobile -->
   <!-- Mobile Status Display -->
-<div class="px-6 py-3 bg-white dark:bg-secondary-dark flex items-center justify-between md:hidden rounded-lg">
-  <div>
-    <p class="text-body1 text-cardtext pt-2">Status</p>
-  </div>
   <div
-    [ngClass]="{
-      'bg-cardBg': invoice.status === 'paid',
-      'bg-cardPending': invoice.status === 'pending',
-      'bg-button4': invoice.status === 'draft'
-    }"
-    class="px-[30px] py-[5px] bg-opacity-25 inline-flex justify-center items-center gap-2 rounded-md"
+    class="px-6 py-3 bg-white dark:bg-secondary-dark flex items-center justify-between md:hidden rounded-lg"
   >
+    <div>
+      <p class="text-body1 text-cardtext pt-2">Status</p>
+    </div>
     <div
       [ngClass]="{
         'bg-cardBg': invoice.status === 'paid',
         'bg-cardPending': invoice.status === 'pending',
-        'bg-button4 dark:bg-accent-light': invoice.status === 'draft'
+        'bg-button4': invoice.status === 'draft'
       }"
-      class="w-2 h-2 rounded-full"
-    ></div>
-    <div>
-      <p
+      class="px-[30px] py-[5px] bg-opacity-25 inline-flex justify-center items-center gap-2 rounded-md"
+    >
+      <div
         [ngClass]="{
-          'text-cardBg': invoice.status === 'paid',
-          'text-cardPending': invoice.status === 'pending',
-          'text-button4 dark:text-accent-light': invoice.status === 'draft'
+          'bg-cardBg': invoice.status === 'paid',
+          'bg-cardPending': invoice.status === 'pending',
+          'bg-button4 dark:bg-accent-light': invoice.status === 'draft'
         }"
-        class="text-body1 !font-bold pt-2"
-      >
-        {{ invoice.status | titlecase }}
-      </p>
+        class="w-2 h-2 rounded-full"
+      ></div>
+      <div>
+        <p
+          [ngClass]="{
+            'text-cardBg': invoice.status === 'paid',
+            'text-cardPending': invoice.status === 'pending',
+            'text-button4 dark:text-accent-light': invoice.status === 'draft'
+          }"
+          class="text-body1 !font-bold pt-2"
+        >
+          {{ invoice.status | titlecase }}
+        </p>
+      </div>
     </div>
   </div>
-</div>
-
 
   <!-- header invoice for tablet and desktop -->
   <div>
@@ -281,7 +286,9 @@
   <div (click)="openModal()">
     <app-button5></app-button5>
   </div>
-  <app-button2></app-button2>
+  <div (click)="markAsPaid()">
+    <app-button2></app-button2>
+  </div>
 </div>
 
 <!-- this is the slide div with animation from left to where it need to be -->
@@ -289,193 +296,192 @@
   [@slideInOut]="invoiceEditSlide ? 'in' : 'out'"
   class="w-[85%] lg:w-[719px] h-[93%] lg:h-full bg-white dark:bg-secondary-dark absolute hidden md:block md:top-[80px] lg:top-0 lg:left-10 z-10 rounded-r-[20px]"
 >
-<div class="w-full h-full overflow-y-scroll md:p-14 lg:pl-[84px]">
-  
-  <form [formGroup]="invoiceForm">
-    <div>
-      <p class="text-2xl font-bold dark:text-white">
-        Edit <span class="text-accent-muted">#</span>{{invoiceId}}
-      </p>
-    </div>
-    <div>
-      <p class="text-body1 font-bold text-primary">Bill From</p>
-    </div>
-    <div>
-      <app-text-field
-        [text]="'Street Address'"
-        [control]="streetAddressControl"
-        [isValid]="
-          streetAddressControl.valid || streetAddressControl.untouched
-        "
-      ></app-text-field>
-    </div>
-    <div class="flex justify-between items-center mt-6">
-      <div class="w-[32%]">
-        <app-text-field
-          [text]="'City'"
-          [control]="cityControl"
-          [isValid]="cityControl.valid || cityControl.untouched"
-        ></app-text-field>
+  <div class="w-full h-full overflow-y-scroll md:p-14 lg:pl-[84px]">
+    <form [formGroup]="invoiceForm">
+      <div>
+        <p class="text-2xl font-bold dark:text-white">
+          Edit <span class="text-accent-muted">#</span>{{ invoiceId }}
+        </p>
       </div>
-      <div class="w-[32%]">
-        <app-text-field
-          [text]="'Post Code'"
-          [control]="postCodeControl"
-          [isValid]="postCodeControl.valid || postCodeControl.untouched"
-        ></app-text-field>
+      <div>
+        <p class="text-body1 font-bold text-primary">Bill From</p>
       </div>
-      <div class="w-[32%]">
+      <div>
         <app-text-field
-          [text]="'Country'"
-          [control]="countryControl"
-          [isValid]="countryControl.valid || countryControl.untouched"
-        ></app-text-field>
-      </div>
-    </div>
-    <div class="mt-6">
-      <app-text-field
-        [text]="'Client’s Name'"
-        [control]="clientNameControl"
-        [isValid]="clientNameControl.valid || clientNameControl.untouched"
-      ></app-text-field>
-    </div>
-    <div class="mt-6">
-      <app-text-field
-        [text]="'Client’s Email'"
-        [control]="clientEmailControl"
-        [isValid]="clientEmailControl.valid || clientEmailControl.untouched"
-      ></app-text-field>
-    </div>
-    <div class="mt-6">
-      <app-text-field
-        [text]="'Street Address'"
-        [control]="clientStreetAdressControl"
-        [isValid]="
-          clientStreetAdressControl.valid ||
-          clientStreetAdressControl.untouched
-        "
-      ></app-text-field>
-    </div>
-    <div class="flex justify-between items-center mt-6">
-      <div class="w-[32%]">
-        <app-text-field
-          [text]="'City'"
-          [control]="clientCityControl"
-          [isValid]="clientCityControl.valid || clientCityControl.untouched"
-        ></app-text-field>
-      </div>
-      <div class="w-[32%]">
-        <app-text-field
-          [text]="'Post Code'"
-          [control]="clientPostCodeControl"
+          [text]="'Street Address'"
+          [control]="streetAddressControl"
           [isValid]="
-            clientPostCodeControl.valid || clientPostCodeControl.untouched
+            streetAddressControl.valid || streetAddressControl.untouched
           "
         ></app-text-field>
       </div>
-      <div class="w-[32%]">
-        <app-text-field
-          [text]="'Country'"
-          [control]="clientCountryControl"
-          [isValid]="
-            clientCountryControl.valid || clientCountryControl.untouched
-          "
-        ></app-text-field>
-      </div>
-    </div>
-    <div class="mt-6 flex justify-between">
-      <div class="w-[48%]">
-        <app-issue-date [control]="invoiceDateControl"></app-issue-date>
-      </div>
-      <div class="w-[48%]">
-        <app-dropdown [control]="paymentTermsControl"></app-dropdown>
-      </div>
-    </div>
-    <div class="mt-6">
-      <app-text-field
-        [control]="projectDescriptionControl"
-        [isValid]="
-          projectDescriptionControl.valid ||
-          projectDescriptionControl.untouched
-        "
-        [text]="'Project Description'"
-      ></app-text-field>
-    </div>
-    <div class="mt-[66px]">
-      <p class="text-[18px] font-bold leading-8 text-itemList">Item List</p>
-    </div>
-    <div formArrayName="items">
-      <div
-        *ngFor="let item of items.controls; let i = index"
-        [formGroupName]="i"
-        class="mt-6 w-full flex justify-between items-end"
-      >
-        <div class="w-[29%] mt-6">
+      <div class="flex justify-between items-center mt-6">
+        <div class="w-[32%]">
           <app-text-field
-            [text]="'Item Name'"
-            formControlName="itemName"
+            [text]="'City'"
+            [control]="cityControl"
+            [isValid]="cityControl.valid || cityControl.untouched"
           ></app-text-field>
         </div>
-        <div class="w-[14%]">
-          <div class="mt-6">
-            <app-text-field
-              [text]="'Qty.'"
-              formControlName="quantity"
-              (input)="calculateTotal(i)"
-            ></app-text-field>
-          </div>
+        <div class="w-[32%]">
+          <app-text-field
+            [text]="'Post Code'"
+            [control]="postCodeControl"
+            [isValid]="postCodeControl.valid || postCodeControl.untouched"
+          ></app-text-field>
         </div>
-        <div class="w-[24%]">
-          <div class="mt-6">
-            <app-text-field
-              [text]="'Price'"
-              formControlName="price"
-              (input)="calculateTotal(i)"
-            ></app-text-field>
-          </div>
+        <div class="w-[32%]">
+          <app-text-field
+            [text]="'Country'"
+            [control]="countryControl"
+            [isValid]="countryControl.valid || countryControl.untouched"
+          ></app-text-field>
         </div>
-        <div class="w-[14%] flex flex-col justify-start gap-3 h-[57px]">
-          <p class="text-body1 dark:text-accent-light text-accent-medium">
-            Total
-          </p>
-          <p
-            class="text-body1 dark:text-accent-light text-accent-muted !font-bold"
-          >
-            {{ items.at(i).get("total")?.value | currency }}
-          </p>
+      </div>
+      <div class="mt-6">
+        <app-text-field
+          [text]="'Client’s Name'"
+          [control]="clientNameControl"
+          [isValid]="clientNameControl.valid || clientNameControl.untouched"
+        ></app-text-field>
+      </div>
+      <div class="mt-6">
+        <app-text-field
+          [text]="'Client’s Email'"
+          [control]="clientEmailControl"
+          [isValid]="clientEmailControl.valid || clientEmailControl.untouched"
+        ></app-text-field>
+      </div>
+      <div class="mt-6">
+        <app-text-field
+          [text]="'Street Address'"
+          [control]="clientStreetAdressControl"
+          [isValid]="
+            clientStreetAdressControl.valid ||
+            clientStreetAdressControl.untouched
+          "
+        ></app-text-field>
+      </div>
+      <div class="flex justify-between items-center mt-6">
+        <div class="w-[32%]">
+          <app-text-field
+            [text]="'City'"
+            [control]="clientCityControl"
+            [isValid]="clientCityControl.valid || clientCityControl.untouched"
+          ></app-text-field>
         </div>
+        <div class="w-[32%]">
+          <app-text-field
+            [text]="'Post Code'"
+            [control]="clientPostCodeControl"
+            [isValid]="
+              clientPostCodeControl.valid || clientPostCodeControl.untouched
+            "
+          ></app-text-field>
+        </div>
+        <div class="w-[32%]">
+          <app-text-field
+            [text]="'Country'"
+            [control]="clientCountryControl"
+            [isValid]="
+              clientCountryControl.valid || clientCountryControl.untouched
+            "
+          ></app-text-field>
+        </div>
+      </div>
+      <div class="mt-6 flex justify-between">
+        <div class="w-[48%]">
+          <app-issue-date [control]="invoiceDateControl"></app-issue-date>
+        </div>
+        <div class="w-[48%]">
+          <app-dropdown [control]="paymentTermsControl"></app-dropdown>
+        </div>
+      </div>
+      <div class="mt-6">
+        <app-text-field
+          [control]="projectDescriptionControl"
+          [isValid]="
+            projectDescriptionControl.valid ||
+            projectDescriptionControl.untouched
+          "
+          [text]="'Project Description'"
+        ></app-text-field>
+      </div>
+      <div class="mt-[66px]">
+        <p class="text-[18px] font-bold leading-8 text-itemList">Item List</p>
+      </div>
+      <div formArrayName="items">
         <div
-          class="w-[14%] h-[40px] flex justify-end pr-1 cursor-pointer"
-          (click)="removeItem(i)"
+          *ngFor="let item of items.controls; let i = index"
+          [formGroupName]="i"
+          class="mt-6 w-full flex justify-between items-end"
         >
-          <img
-            class="w-[16px] h-[20px]"
-            src="assets/icon-delete.svg"
-            alt="icon-delete"
-          />
+          <div class="w-[29%] mt-6">
+            <app-text-field
+              [text]="'Item Name'"
+              formControlName="itemName"
+            ></app-text-field>
+          </div>
+          <div class="w-[14%]">
+            <div class="mt-6">
+              <app-text-field
+                [text]="'Qty.'"
+                formControlName="quantity"
+                (input)="calculateTotal(i)"
+              ></app-text-field>
+            </div>
+          </div>
+          <div class="w-[24%]">
+            <div class="mt-6">
+              <app-text-field
+                [text]="'Price'"
+                formControlName="price"
+                (input)="calculateTotal(i)"
+              ></app-text-field>
+            </div>
+          </div>
+          <div class="w-[14%] flex flex-col justify-start gap-3 h-[57px]">
+            <p class="text-body1 dark:text-accent-light text-accent-medium">
+              Total
+            </p>
+            <p
+              class="text-body1 dark:text-accent-light text-accent-muted !font-bold"
+            >
+              {{ items.at(i).get("total")?.value | currency }}
+            </p>
+          </div>
+          <div
+            class="w-[14%] h-[40px] flex justify-end pr-1 cursor-pointer"
+            (click)="removeItem(i)"
+          >
+            <img
+              class="w-[16px] h-[20px]"
+              src="assets/icon-delete.svg"
+              alt="icon-delete"
+            />
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="mt-6 w-full">
-      <button class="w-full" type="button" (click)="addItem()">
-        <app-button6></app-button6>
-      </button>
-    </div>
-    <div
-      class="flex justify-end items-center bg-white dark:bg-secondary-dark bottom-0 w-full py-[22px]"
-    >
-      <div class="flex justify-end items-center gap-3">
-        <div (click)="discardForm()">
-          <app-button3 [text]="'Cancel'"></app-button3>
-        </div>
-        <div (click)="onSubmit()">
-          <app-button2 [text]="'Save Changes'"></app-button2>
+      <div class="mt-6 w-full">
+        <button class="w-full" type="button" (click)="addItem()">
+          <app-button6></app-button6>
+        </button>
+      </div>
+      <div
+        class="flex justify-end items-center bg-white dark:bg-secondary-dark bottom-0 w-full py-[22px]"
+      >
+        <div class="flex justify-end items-center gap-3">
+          <div (click)="discardForm()">
+            <app-button3 [text]="'Cancel'"></app-button3>
+          </div>
+          <div (click)="onSubmit()">
+            <app-button2 [text]="'Save Changes'"></app-button2>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 </div>
 
 <!-- Modal Backdrop -->
