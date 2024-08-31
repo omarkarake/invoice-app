@@ -152,7 +152,7 @@ export class HomeComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    console.log('invoiceForm', this.invoiceForm.value);
+    // console.log('invoiceForm', this.invoiceForm.value);
   }
 
   createItem(): FormGroup {
