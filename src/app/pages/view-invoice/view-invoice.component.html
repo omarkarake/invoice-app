@@ -469,7 +469,9 @@
         <div (click)="discardForm()">
           <app-button3 [text]="'Cancel'"></app-button3>
         </div>
-        <app-button2 [text]="'Save Changes'"></app-button2>
+        <div (click)="onSubmit()">
+          <app-button2 [text]="'Save Changes'"></app-button2>
+        </div>
       </div>
     </div>
   </form>

@@ -240,7 +240,6 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
     this.closeInvoice();
   }
 
-
   private calculatePaymentDueDate(
     createdAt: string,
     paymentTerms: number
@@ -259,5 +258,49 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
 
   private formatDate(date: Date): string {
     return this.datePipe.transform(date, 'yyyy-MM-dd') || '';
+  }
+
+  onSubmit(): void {
+    if (this.invoiceForm.valid) {
+      // Format the dates (assuming you want to use today's date for createdAt and tomorrow's date for paymentDue)
+      const createdAt = this.invoiceDateControl.value;
+      const paymentDue = this.calculatePaymentDueDate(
+        createdAt,
+        this.paymentTermsControl.value
+      );
+
+      // Map form data to the desired structure
+      const formData = {
+        createdAt: createdAt,
+        paymentDue: paymentDue,
+        description: this.projectDescriptionControl.value,
+        paymentTerms: this.paymentTermsControl.value,
+        clientName: this.clientNameControl.value,
+        clientEmail: this.clientEmailControl.value,
+        status: this.invoiceForm.get('status')?.value || 'pending', // Default status if not set
+        senderAddress: {
+          street: this.streetAddressControl.value,
+          city: this.cityControl.value,
+          postCode: this.postCodeControl.value,
+          country: this.countryControl.value,
+        },
+        clientAddress: {
+          street: this.clientStreetAdressControl.value,
+          city: this.clientCityControl.value,
+          postCode: this.clientPostCodeControl.value,
+          country: this.clientCountryControl.value,
+        },
+        items: this.items.value.map((item: any) => ({
+          name: item.itemName,
+          quantity: item.quantity,
+          price: item.price,
+          total: item.total,
+        })),
+        total: this.calculateInvoiceTotal(),
+      };
+
+      // Handle form submission
+      console.log('formData after submition: ', formData);
+    }
   }
 }
