@@ -6,10 +6,9 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Invoice } from '../../models/invoice.model';
 import {
-  selectFilteredInvoice,
   selectFilteredInvoices,
   selectInvoiceState,
 } from '../../store/selectors/invoice.selector';
@@ -21,6 +20,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -44,6 +44,7 @@ import {
       transition('in => out', [animate('300ms ease-out')]),
     ]),
   ],
+  providers: [DatePipe],
 })
 export class HomeComponent implements OnInit, DoCheck {
   invoiceCreateSlide: boolean = true;
@@ -57,13 +58,13 @@ export class HomeComponent implements OnInit, DoCheck {
     private store: Store<{
       appState: { invoice: Invoice[]; filteredInvoice: string[] };
     }>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private datePipe: DatePipe
   ) {
     this.invoices$ = this.store.select(selectInvoiceState);
   }
 
   newInvoiceTrigger() {
-    // this.invoiceCreateSlide = !this.invoiceCreateSlide;
     console.log('newInvoiceTrigger');
   }
 
@@ -143,7 +144,7 @@ export class HomeComponent implements OnInit, DoCheck {
       paymentTerms: new FormControl('', Validators.required),
       projectDescription: new FormControl('', Validators.required),
       items: this.fb.array([this.createItem()]),
-      status: new FormControl(''),
+      status: new FormControl('pending'),
       // Add other form controls as needed
     });
   }
@@ -157,7 +158,7 @@ export class HomeComponent implements OnInit, DoCheck {
       itemName: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(1)]],
       price: [0, [Validators.required, Validators.min(0)]],
-      total: [{ value: 0, disabled: true }],
+      total: [{ value: 0 }],
     });
   }
 
@@ -182,10 +183,39 @@ export class HomeComponent implements OnInit, DoCheck {
       // Generate the ID
       const generatedId = this.generateId();
 
-      // Add the ID to the form data
+      // Format the dates (assuming you want to use today's date for createdAt and tomorrow's date for paymentDue)
+      const createdAt = this.formatDate(new Date());
+      const paymentDue = this.calculatePaymentDueDate(createdAt, this.paymentTermsControl.value);
+
+      // Map form data to the desired structure
       const formData = {
         id: generatedId,
-        ...this.invoiceForm.value,
+        createdAt: createdAt,
+        paymentDue: paymentDue,
+        description: this.projectDescriptionControl.value,
+        paymentTerms: this.paymentTermsControl.value,
+        clientName: this.clientNameControl.value,
+        clientEmail: this.clientEmailControl.value,
+        status: this.invoiceForm.get('status')?.value || 'pending', // Default status if not set
+        senderAddress: {
+          street: this.streetAddressControl.value,
+          city: this.cityControl.value,
+          postCode: this.postCodeControl.value,
+          country: this.countryControl.value,
+        },
+        clientAddress: {
+          street: this.clientStreetAdressControl.value,
+          city: this.clientCityControl.value,
+          postCode: this.clientPostCodeControl.value,
+          country: this.clientCountryControl.value,
+        },
+        items: this.items.value.map((item: any) => ({
+          name: item.itemName,
+          quantity: item.quantity,
+          price: item.price,
+          total: item.total,
+        })),
+        total: this.calculateInvoiceTotal(), // total: NaN
       };
 
       // Handle form submission
@@ -210,5 +240,19 @@ export class HomeComponent implements OnInit, DoCheck {
     const prefix = 'RT'; // You can change this to 'BY', 'RW', etc.
     const randomNumber = Math.floor(1000 + Math.random() * 9000); // Generates a 4-digit number
     return `${prefix}${randomNumber}`;
+  }
+
+  private calculatePaymentDueDate(createdAt: string, paymentTerms: number): string {
+    const createdDate = new Date(createdAt);
+    createdDate.setDate(createdDate.getDate() + paymentTerms);
+    return this.formatDate(createdDate);
+  }
+
+  private calculateInvoiceTotal(): number {
+    return this.items.value.reduce((sum: number, item: any) => sum + item.total, 0);
+  }
+
+  private formatDate(date: Date): string {
+    return this.datePipe.transform(date, 'yyyy-MM-dd') || '';
   }
 }

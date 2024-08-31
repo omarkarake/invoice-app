@@ -14,7 +14,7 @@
   >
     <div>
       <p class="text-body1 !font-bold dark:text-white pt-2">
-        {{ selectedPaymentTerm }}
+        {{ getSelectedLabel() }}
       </p>
     </div>
     <div>
@@ -25,7 +25,6 @@
   <!-- Hidden input to store the selected payment term -->
   <input
     type="text"
-    [(ngModel)]="selectedPaymentTerm"
     [formControl]="control"
     style="visibility: hidden"
   />
@@ -34,28 +33,15 @@
     [ngClass]="{ hidden: !isDroping }"
   >
     <div
-      class="h-[46px] rounded-t-lg bg-white dark:bg-button3-dark py-[17px] pl-6 flex justify-between items-center cursor-pointer"
-      (click)="selectPaymentTerm('Net 1 Days')"
-    >
-      <p class="text-body1 !font-bold dark:text-white">Net 1 Days</p>
-    </div>
-    <div
+      *ngFor="let term of paymentTerms"
       class="h-[46px] bg-white dark:bg-button3-dark py-[17px] pl-6 flex justify-between items-center cursor-pointer"
-      (click)="selectPaymentTerm('Net 7 Days')"
+      [ngClass]="{
+        'rounded-t-lg': term.value === 1,
+        'rounded-b-lg': term.value === 30
+      }"
+      (click)="selectPaymentTerm(term.value)"
     >
-      <p class="text-body1 !font-bold dark:text-white">Net 7 Days</p>
-    </div>
-    <div
-      class="h-[46px] bg-white dark:bg-button3-dark py-[17px] pl-6 flex justify-between items-center cursor-pointer"
-      (click)="selectPaymentTerm('Net 14 Days')"
-    >
-      <p class="text-body1 !font-bold dark:text-white">Net 14 Days</p>
-    </div>
-    <div
-      class="h-[46px] rounded-b-lg bg-white dark:bg-button3-dark py-[17px] pl-6 flex justify-between items-center cursor-pointer"
-      (click)="selectPaymentTerm('Net 30 Days')"
-    >
-      <p class="text-body1 !font-bold dark:text-white">Net 30 Days</p>
+      <p class="text-body1 !font-bold dark:text-white">{{ term.label }}</p>
     </div>
   </div>
 </div>
