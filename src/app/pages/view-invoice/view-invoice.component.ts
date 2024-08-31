@@ -235,4 +235,8 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
     const total = quantity * price;
     item.get('total')?.setValue(total);
   }
+
+  discardForm(): void {
+    this.closeInvoice();
+  }
 }

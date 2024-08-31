@@ -466,7 +466,9 @@
       class="flex justify-end items-center bg-white dark:bg-secondary-dark bottom-0 w-full py-[22px]"
     >
       <div class="flex justify-end items-center gap-3">
-        <app-button3 [text]="'Discard'"></app-button3>
+        <div (click)="discardForm()">
+          <app-button3 [text]="'Cancel'"></app-button3>
+        </div>
         <app-button2 [text]="'Save Changes'"></app-button2>
       </div>
     </div>
