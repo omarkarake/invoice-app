@@ -10,6 +10,7 @@ import {
 import { Store } from '@ngrx/store';
 import { selectInvoiceById } from '../../store/selectors/invoice.selector';
 import { Invoice } from '../../models/invoice.model';
+import { Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-view-invoice',
@@ -38,6 +39,7 @@ export class ViewInvoiceComponent implements OnInit {
   invoiceEditSlide: boolean = false;
   isModalOpen = false;
   invoiceId: string | null = null;
+  invoice$: Observable<Invoice | null | undefined> | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,16 +51,10 @@ export class ViewInvoiceComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.invoiceId = params.get('id');
-      console.log(this.invoiceId); // You can remove this line after testing
-      // this.store.select(selectInvoiceState).subscribe((data) => {
-      //   console.log('invoices datas:', data); // You can remove this line after testing
-      // });
       if (this.invoiceId) {
-        this.store
+        this.invoice$ = this.store
           .select(selectInvoiceById(this.invoiceId))
-          .subscribe((data) => {
-            console.log('Selected invoice:', data); // You can remove this line after testing
-          });
+          .pipe(startWith(null)); // This ensures the observable starts with null
       }
     });
   }

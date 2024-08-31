@@ -143,7 +143,11 @@
       </div>
     </div> -->
 
-    <div *ngFor="let invoice of invoiceDatas" class="md:hidden mt-4">
+    <div
+      *ngFor="let invoice of invoiceDatas"
+      class="md:hidden mt-4"
+      [routerLink]="['/view', invoice.id]"
+    >
       <div class="px-6 py-4 bg-white dark:bg-secondary-dark mt-8 rounded-lg">
         <div class="h-full flex justify-between items-center">
           <div>
@@ -372,9 +376,8 @@
       </div>
     </div>
   </div>
-
-  <!-- this is the slide div with animation from left to where it need to be -->
 </div>
+<!-- this is the slide div with animation from left to where it need to be -->
 <div
   [@slideInOut]="invoiceCreateSlide ? 'in' : 'out'"
   class="w-[85%] lg:w-[719px] h-[93%] lg:h-full bg-white dark:bg-secondary-dark absolute hidden md:block md:top-[80px] lg:top-0 lg:left-10 z-0 rounded-r-[20px]"
@@ -556,10 +559,26 @@
           <app-button3 [text]="'Discard'"></app-button3>
         </div>
         <div class="flex items-center gap-3">
-          <button type="button" (click)="invoiceForm.get('status')?.setValue('draft'); invoiceForm.markAsDirty(); invoiceForm.markAsTouched(); onSubmit()">
+          <button
+            type="button"
+            (click)="
+              invoiceForm.get('status')?.setValue('draft');
+              invoiceForm.markAsDirty();
+              invoiceForm.markAsTouched();
+              onSubmit()
+            "
+          >
             <app-button4></app-button4>
           </button>
-          <button type="button" (click)="invoiceForm.get('status')?.setValue('pending'); invoiceForm.markAsDirty(); invoiceForm.markAsTouched(); onSubmit()">
+          <button
+            type="button"
+            (click)="
+              invoiceForm.get('status')?.setValue('pending');
+              invoiceForm.markAsDirty();
+              invoiceForm.markAsTouched();
+              onSubmit()
+            "
+          >
             <app-button2 [text]="'Save & Send'"></app-button2>
           </button>
         </div>

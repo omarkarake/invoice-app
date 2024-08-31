@@ -1,5 +1,6 @@
 <div
   class="px-6 md:px-12 lg:px-[252px] h-[600px] md:h-auto lg:h-[620px] py-8 md:py-14 mb-10"
+  *ngIf="invoice$ | async as invoice"
 >
   <a routerLink="/home" class="inline-flex items-center gap-3 cursor-pointer">
     <div><img src="assets/icon-arrow-left.svg" alt="icon-left" /></div>
@@ -8,245 +9,260 @@
     </div>
   </a>
   <!-- header of invoice for mobile -->
+  <!-- Mobile Status Display -->
+<div class="px-6 py-3 bg-white dark:bg-secondary-dark flex items-center justify-between md:hidden rounded-lg">
+  <div>
+    <p class="text-body1 text-cardtext pt-2">Status</p>
+  </div>
   <div
-    class="px-6 py-3 bg-white dark:bg-secondary-dark flex items-center justify-between md:hidden rounded-lg"
+    [ngClass]="{
+      'bg-cardBg': invoice.status === 'paid',
+      'bg-cardPending': invoice.status === 'pending',
+      'bg-button4': invoice.status === 'draft'
+    }"
+    class="px-[30px] py-[5px] bg-opacity-25 inline-flex justify-center items-center gap-2 rounded-md"
   >
-    <div><p class="text-body1 text-cardtext pt-2">Status</p></div>
     <div
-      class="px-[30px] py-[5px] bg-cardPending bg-opacity-25 inline-flex justify-center items-center gap-2 rounded-md"
-    >
-      <div class="w-2 h-2 rounded-full bg-cardPending"></div>
-      <div>
-        <p class="text-body1 !font-bold text-cardPending pt-2">Pending</p>
-      </div>
+      [ngClass]="{
+        'bg-cardBg': invoice.status === 'paid',
+        'bg-cardPending': invoice.status === 'pending',
+        'bg-button4 dark:bg-accent-light': invoice.status === 'draft'
+      }"
+      class="w-2 h-2 rounded-full"
+    ></div>
+    <div>
+      <p
+        [ngClass]="{
+          'text-cardBg': invoice.status === 'paid',
+          'text-cardPending': invoice.status === 'pending',
+          'text-button4 dark:text-accent-light': invoice.status === 'draft'
+        }"
+        class="text-body1 !font-bold pt-2"
+      >
+        {{ invoice.status | titlecase }}
+      </p>
     </div>
   </div>
+</div>
+
 
   <!-- header invoice for tablet and desktop -->
-  <div
-    class="md:flex justify-between py-5 px-8 bg-white dark:bg-secondary-dark rounded-lg hidden mt-2"
-  >
-    <div class="flex items-center gap-3">
-      <div><p class="text-body1 text-cardtext pt-2">Status</p></div>
+  <div>
+    <div>
       <div
-        class="px-[30px] py-[5px] bg-cardPending bg-opacity-25 inline-flex justify-center items-center gap-2 rounded-md"
+        class="md:flex justify-between py-5 px-8 bg-white dark:bg-secondary-dark rounded-lg hidden mt-2"
       >
-        <div class="w-2 h-2 rounded-full bg-cardPending"></div>
-        <div>
-          <p class="text-body1 !font-bold text-cardPending pt-2">Pending</p>
+        <div class="flex items-center gap-3">
+          <div>
+            <p class="text-body1 text-cardtext pt-2">Status</p>
+          </div>
+          <div
+            [ngClass]="{
+              'bg-cardBg': invoice.status === 'paid',
+              'bg-cardPending': invoice.status === 'pending',
+              'bg-button4': invoice.status === 'draft'
+            }"
+            class="w-auto px-[30px] py-[5px] bg-opacity-25 inline-flex justify-center items-center gap-2 rounded-md"
+          >
+            <div
+              [ngClass]="{
+                'bg-cardBg': invoice.status === 'paid',
+                'bg-cardPending': invoice.status === 'pending',
+                'bg-button4 dark:bg-accent-light': invoice.status === 'draft'
+              }"
+              class="w-2 h-2 rounded-full"
+            ></div>
+            <div>
+              <p
+                [ngClass]="{
+                  'text-cardBg': invoice.status === 'paid',
+                  'text-cardPending': invoice.status === 'pending',
+                  'text-but dark:text-accent-light': invoice.status === 'draft'
+                }"
+                class="text-body1 !font-bold pt-2"
+              >
+                {{ invoice.status | titlecase }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="md:flex items-center justify-between gap-2 hidden">
+          <div (click)="editInvoiceTrigger()">
+            <app-button3></app-button3>
+          </div>
+          <div (click)="openModal()">
+            <app-button5></app-button5>
+          </div>
+          <app-button2></app-button2>
         </div>
       </div>
-    </div>
 
-    <div class="md:flex items-center justify-between gap-2 hidden">
-      <div (click)="editInvoiceTrigger()">
-        <app-button3></app-button3>
-      </div>
-      <div (click)="openModal()">
-        <app-button5></app-button5>
-      </div>
-      <app-button2></app-button2>
-    </div>
-  </div>
-
-  <div class="p-6 bg-white dark:bg-secondary-dark rounded-lg mt-3">
-    <div class="flex flex-col gap-3 md:gap-0 md:flex-row md:justify-between">
-      <div>
-        <p class="text-body1 dark:text-white !font-bold">
-          <span class="text-accent-medium">#</span>RT3080
-        </p>
-        <div>
-          <p class="text-body1 dark:text-accent-light text-accent-medium">
-            Graphic Design
-          </p>
-        </div>
-      </div>
-      <div
-        class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
-      >
-        <p>19 Union Terrace</p>
-        <p>London</p>
-        <p>E1 3EZ</p>
-        <p>United Kingdom</p>
-      </div>
-    </div>
-    <div class="flex justify-between">
-      <div>
-        <div class="mt-3">
-          <p class="text-body1 dark:text-accent-light text-accent-medium">
-            Invoice Date
-          </p>
-          <p class="text-[15px] leading-5 dark:text-white !font-bold">
-            21 Aug 2021
-          </p>
-        </div>
-        <div class="mt-3">
-          <p class="text-body1 dark:text-accent-light text-accent-medium">
-            Payment Due
-          </p>
-          <p class="text-[15px] leading-5 dark:text-white !font-bold">
-            20 Sep 2021
-          </p>
-        </div>
-      </div>
-      <div>
-        <div class="mt-3">
-          <p class="text-body1 dark:text-accent-light text-accent-medium">
-            Bill To
-          </p>
-          <p class="text-[15px] leading-5 dark:text-white !font-bold">
-            Alex Grim
-          </p>
-        </div>
+      <div class="p-6 bg-white dark:bg-secondary-dark rounded-lg mt-3">
         <div
-          class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+          class="flex flex-col gap-3 md:gap-0 md:flex-row md:justify-between"
         >
-          <p>84 Church Way</p>
-          <p>Bradford</p>
-          <p>BD1 9PB</p>
-          <p>United Kingdom</p>
-        </div>
-      </div>
-
-      <div class="hidden md:block">
-        <div class="mt-3">
-          <p class="text-body1 dark:text-accent-light text-accent-medium">
-            Sent to
-          </p>
-          <p class="text-[15px] leading-5 dark:text-white !font-bold">
-            alexgrim&#64;mail.com
-          </p>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="md:hidden">
-        <div class="mt-3">
-          <p class="text-body1 dark:text-accent-light text-accent-medium">
-            Sent to
-          </p>
-          <p class="text-[15px] leading-5 dark:text-white !font-bold">
-            alexgrim&#64;mail.com
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <!-- price table for mobile -->
-      <div class="p-6 bg-button3 dark:bg-secondary-darker md:hidden">
-        <div class="flex justify-between items-center">
-          <div class="flex flex-col">
+          <div>
+            <p class="text-body1 dark:text-white !font-bold">
+              <span class="text-accent-medium">#</span>{{ invoice.id }}
+            </p>
             <div>
-              <p class="text-body1 dark:text-white !font-bold">Banner Design</p>
+              <p class="text-body1 dark:text-accent-light text-accent-medium">
+                {{ invoice.description }}
+              </p>
             </div>
-            <div>
-              <p
-                class="text-body1 dark:text-accent-light text-accent-medium !font-bold"
-              >
-                1x £ 156.00
+          </div>
+          <div
+            class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+          >
+            <p>{{ invoice.senderAddress.street }}</p>
+            <p>{{ invoice.senderAddress.city }}</p>
+            <p>{{ invoice.senderAddress.postCode }}</p>
+            <p>{{ invoice.senderAddress.country }}</p>
+          </div>
+        </div>
+
+        <div class="flex justify-between">
+          <div>
+            <div class="mt-3">
+              <p class="text-body1 dark:text-accent-light text-accent-medium">
+                Invoice Date
+              </p>
+              <p class="text-[15px] leading-5 dark:text-white !font-bold">
+                {{ invoice.createdAt | date : "dd MMM yyyy" }}
+              </p>
+            </div>
+            <div class="mt-3">
+              <p class="text-body1 dark:text-accent-light text-accent-medium">
+                Payment Due
+              </p>
+              <p class="text-[15px] leading-5 dark:text-white !font-bold">
+                {{ invoice.paymentDue | date : "dd MMM yyyy" }}
               </p>
             </div>
           </div>
           <div>
-            <p class="text-[15px] leading-5 dark:text-white !font-bold">
-              £ 156.00
-            </p>
-          </div>
-        </div>
-        <div class="flex justify-between items-center">
-          <div class="flex flex-col">
-            <div>
-              <p class="text-body1 dark:text-white !font-bold">Banner Design</p>
+            <div class="mt-3">
+              <p class="text-body1 dark:text-accent-light text-accent-medium">
+                Bill To
+              </p>
+              <p class="text-[15px] leading-5 dark:text-white !font-bold">
+                {{ invoice.clientName }}
+              </p>
             </div>
-            <div>
-              <p
-                class="text-body1 dark:text-accent-light text-accent-medium !font-bold"
-              >
-                2 x £ 200.00
+            <div
+              class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+            >
+              <p>{{ invoice.clientAddress.street }}</p>
+              <p>{{ invoice.clientAddress.city }}</p>
+              <p>{{ invoice.clientAddress.postCode }}</p>
+              <p>{{ invoice.clientAddress.country }}</p>
+            </div>
+          </div>
+          <div class="hidden md:block">
+            <div class="mt-3">
+              <p class="text-body1 dark:text-accent-light text-accent-medium">
+                Sent to
+              </p>
+              <p class="text-[15px] leading-5 dark:text-white !font-bold">
+                {{ invoice.clientEmail }}
               </p>
             </div>
           </div>
-          <div>
-            <p class="text-[15px] leading-5 dark:text-white !font-bold">
-              £ 400.00
-            </p>
-          </div>
         </div>
-      </div>
-      <!-- price table for tablet and desktop -->
-      <div class="p-6 bg-button3 dark:bg-secondary-darker hidden md:block">
-        <div class="flex justify-between items-center">
-          <div>
-            <p
-              class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+
+        <div>
+          <!-- price table for mobile -->
+          <div class="p-6 bg-button3 dark:bg-secondary-darker md:hidden">
+            <div
+              *ngFor="let item of invoice.items"
+              class="flex justify-between items-center"
             >
-              Item Name
-            </p>
+              <div class="flex flex-col">
+                <div>
+                  <p class="text-body1 dark:text-white !font-bold">
+                    {{ item.name }}
+                  </p>
+                </div>
+                <div>
+                  <p
+                    class="text-body1 dark:text-accent-light text-accent-medium !font-bold"
+                  >
+                    {{ item.quantity }}x £ {{ item.price }}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <p class="text-[15px] leading-5 dark:text-white !font-bold">
+                  £ {{ item.total }}
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div class="flex items-center gap-[108px]">
-            <p
-              class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+          <!-- price table for tablet and desktop -->
+          <div class="p-6 bg-button3 dark:bg-secondary-darker hidden md:block">
+            <div class="flex justify-between items-center">
+              <div class="w-2/5">
+                <p
+                  class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+                >
+                  Item Name
+                </p>
+              </div>
+              <div class="flex items-center w-3/5 justify-between">
+                <p
+                  class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+                >
+                  QTY.
+                </p>
+                <p
+                  class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+                >
+                  Price
+                </p>
+                <p
+                  class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+                >
+                  Total
+                </p>
+              </div>
+            </div>
+            <div
+              *ngFor="let item of invoice.items"
+              class="flex justify-between items-center mt-4"
             >
-              QTY.
-            </p>
-            <p
-              class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium pr-5"
-            >
-              Price
-            </p>
-            <p
-              class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
-            >
-              Total
-            </p>
-          </div>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <div>
-            <p class="text-body1 font-bold dark:text-white">Banner Design</p>
+              <div class="w-2/5">
+                <p class="text-body1 font-bold dark:text-white">
+                  {{ item.name }}
+                </p>
+              </div>
+              <div class="flex items-center w-3/5 justify-between">
+                <p
+                  class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+                >
+                  {{ item.quantity }}
+                </p>
+                <p
+                  class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
+                >
+                  £ {{ item.price }}
+                </p>
+                <p class="text-body1 font-bold dark:text-white">
+                  £ {{ item.total }}
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div class="flex items-center gap-[100px]">
-            <p
-              class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
-            >
-              1
-            </p>
-            <p
-              class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
-            >
-              £ 156.00
-            </p>
-            <p class="text-body1 font-bold dark:text-white">£ 156.00</p>
+          <div
+            class="p-6 bg-button4 dark:bg-accent-dark rounded-b-lg flex justify-between items-center"
+          >
+            <div><p class="text-body2 text-white mt-2">Grand Total</p></div>
+            <div>
+              <p class="text-h2 text-white mt-3">£ {{ invoice.total }}</p>
+            </div>
           </div>
         </div>
-        <div class="flex justify-between items-center mt-3">
-          <div>
-            <p class="text-body1 font-bold dark:text-white">Banner Design</p>
-          </div>
-
-          <div class="flex items-center gap-[100px]">
-            <p
-              class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
-            >
-              2
-            </p>
-            <p
-              class="text-body2 leading-[10px] dark:text-accent-light text-accent-medium"
-            >
-              £ 200.00
-            </p>
-            <p class="text-body1 font-bold dark:text-white">£ 400.00</p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="p-6 bg-button4 dark:bg-accent-dark rounded-b-lg flex justify-between items-center"
-      >
-        <div><p class="text-body2 text-white mt-2">Grand Total</p></div>
-        <div><p class="text-h2 text-white mt-3">£ 556.00</p></div>
       </div>
     </div>
   </div>
@@ -398,7 +414,10 @@
 <div *ngIf="isModalOpen" class="modal-backdrop" (click)="closeModal()"></div>
 
 <!-- Modal -->
-<div *ngIf="isModalOpen" class="modal p-8 md:p-12 bg-white dark:bg-secondary-dark w-[80%]">
+<div
+  *ngIf="isModalOpen"
+  class="modal p-8 md:p-12 bg-white dark:bg-secondary-dark w-[80%]"
+>
   <!-- <div class="modal-content">
     <span class="close-button" (click)="closeModal()">&times;</span>
     <p>Your modal content goes here.</p>
