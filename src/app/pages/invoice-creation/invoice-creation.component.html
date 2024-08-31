@@ -120,9 +120,31 @@
 <div
   class="flex items-center justify-between md:hidden bg-white dark:bg-secondary-dark fixed bottom-0 w-[100%] py-[22px] px-6"
 >
-  <a routerLink="/home">
+  <div (click)="discardForm()">
     <app-button3 [text]="'Discard'"></app-button3>
-  </a>
-  <app-button5></app-button5>
-  <app-button2></app-button2>
+  </div>
+  <div class="flex items-center gap-3">
+    <button
+      type="button"
+      (click)="
+        invoiceForm.get('status')?.setValue('draft');
+        invoiceForm.markAsDirty();
+        invoiceForm.markAsTouched();
+        onSubmit()
+      "
+    >
+      <app-button4></app-button4>
+    </button>
+    <button
+      type="button"
+      (click)="
+        invoiceForm.get('status')?.setValue('pending');
+        invoiceForm.markAsDirty();
+        invoiceForm.markAsTouched();
+        onSubmit()
+      "
+    >
+      <app-button2 [text]="'Save & Send'"></app-button2>
+    </button>
+  </div>
 </div>
