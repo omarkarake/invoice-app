@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   trigger,
   state,
@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { selectInvoiceById } from '../../store/selectors/invoice.selector';
 import { Invoice } from '../../models/invoice.model';
 import { Observable, startWith } from 'rxjs';
-import { updateInvoiceStatus } from '../../store/actions/invoice.action';
+import { deleteInvoice, updateInvoiceStatus } from '../../store/actions/invoice.action';
 
 @Component({
   selector: 'app-view-invoice',
@@ -46,7 +46,8 @@ export class ViewInvoiceComponent implements OnInit {
     private route: ActivatedRoute,
     private store: Store<{
       appState: { invoice: Invoice[]; filteredInvoice: string[] };
-    }>
+    }>,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -91,6 +92,14 @@ export class ViewInvoiceComponent implements OnInit {
     setTimeout(() => {
       this.isModalOpen = false;
     }, 300); // Match the transition duration
+  }
+
+  deleteInvoice() {
+    console.log('deleteInvoice with id: ', this.invoiceId);
+    this.invoiceId &&
+    this.store.dispatch(deleteInvoice({ id: this.invoiceId }));
+    this.closeModal();
+    this.router.navigate(['/home']);
   }
 }
 function markInvoiceAsPaid(arg0: { id: string | null }): any {

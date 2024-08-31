@@ -20,3 +20,8 @@ export const updateInvoiceStatus = createAction(
   '[Invoice] Update Invoice Status',
   props<{ id: string }>()
 );
+
+export const deleteInvoice = createAction(
+  '[Invoice] Delete Invoice',
+  props<{ id: string }>()
+);

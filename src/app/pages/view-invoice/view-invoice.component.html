@@ -435,10 +435,10 @@
   </div>
 
   <div class="flex justify-end items-center gap-3">
-    <div>
-      <app-button3></app-button3>
+    <div (click)="closeModal()">
+      <app-button3 [text]="'Cancel'"></app-button3>
     </div>
-    <div>
+    <div (click)="deleteInvoice()">
       <app-button5></app-button5>
     </div>
   </div>

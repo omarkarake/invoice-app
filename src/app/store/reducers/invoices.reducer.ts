@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import {
   addInvoice,
+  deleteInvoice,
   filterInvoice,
   loadInitialInvoice,
   updateInvoiceStatus,
@@ -50,6 +51,15 @@ export const invoiceReducer = createReducer(
       }
       return invoice;
     });
+
+    return {
+      ...state,
+      invoice: updatedInvoice,
+    };
+  }),
+  on(deleteInvoice, (state, { id }) => {
+    console.log('delete clicked with id: ', id);
+    const updatedInvoice = state.invoice.filter((invoice) => invoice.id !== id);
 
     return {
       ...state,
