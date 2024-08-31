@@ -3,6 +3,7 @@ import {
   addInvoice,
   filterInvoice,
   loadInitialInvoice,
+  updateInvoiceStatus,
 } from '../actions/invoice.action';
 import { Invoice } from '../../models/invoice.model';
 
@@ -36,6 +37,23 @@ export const invoiceReducer = createReducer(
     return {
       ...state,
       invoice: [...state.invoice, invoice],
+    };
+  }),
+  on(updateInvoiceStatus, (state, { id }) => {
+    console.log('paid clicked with id: ', id);
+    const updatedInvoice = state.invoice.map((invoice) => {
+      if (invoice.id === id) {
+        return {
+          ...invoice,
+          status: 'paid',
+        };
+      }
+      return invoice;
+    });
+
+    return {
+      ...state,
+      invoice: updatedInvoice,
     };
   })
 );

@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { selectInvoiceById } from '../../store/selectors/invoice.selector';
 import { Invoice } from '../../models/invoice.model';
 import { Observable, startWith } from 'rxjs';
+import { updateInvoiceStatus } from '../../store/actions/invoice.action';
 
 @Component({
   selector: 'app-view-invoice',
@@ -67,6 +68,11 @@ export class ViewInvoiceComponent implements OnInit {
     this.invoiceEditSlide = false;
   }
 
+  markAsPaid() {
+    this.invoiceId &&
+      this.store.dispatch(updateInvoiceStatus({ id: this.invoiceId }));
+  }
+
   openModal() {
     this.isModalOpen = true;
     setTimeout(() => {
@@ -86,4 +92,7 @@ export class ViewInvoiceComponent implements OnInit {
       this.isModalOpen = false;
     }, 300); // Match the transition duration
   }
+}
+function markInvoiceAsPaid(arg0: { id: string | null }): any {
+  throw new Error('Function not implemented.');
 }
