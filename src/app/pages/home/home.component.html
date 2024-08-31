@@ -297,6 +297,7 @@
     <!-- invoice list for desktop -->
     <div
       *ngFor="let invoice of invoiceDatas"
+      [routerLink]="['/view', invoice.id]"
       class="hidden hover:shadow-sm hover:shadow-primary mt-4 bg-white dark:bg-secondary-dark px-6 py-3 rounded-lg md:flex items-center justify-between cursor-pointer"
     >
       <div class="pt-3 w-[8%] flex justify-center items-center">
