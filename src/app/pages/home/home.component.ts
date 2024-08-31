@@ -152,7 +152,7 @@ export class HomeComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    // console.log('invoiceForm', this.invoiceForm.value);
+    console.log('invoiceForm', this.invoiceForm.value);
   }
 
   createItem(): FormGroup {
@@ -182,16 +182,19 @@ export class HomeComponent implements OnInit, DoCheck {
 
   onSubmit(): void {
     if (this.invoiceForm.valid) {
+      // Enable the total fields before extracting the form values
+      this.items.controls.forEach((item) => item.get('total')?.enable());
+  
       // Generate the ID
       const generatedId = this.generateId();
-
+  
       // Format the dates (assuming you want to use today's date for createdAt and tomorrow's date for paymentDue)
       const createdAt = this.formatDate(new Date());
       const paymentDue = this.calculatePaymentDueDate(
         createdAt,
         this.paymentTermsControl.value
       );
-
+  
       // Map form data to the desired structure
       const formData = {
         id: generatedId,
@@ -222,7 +225,10 @@ export class HomeComponent implements OnInit, DoCheck {
         })),
         total: this.calculateInvoiceTotal(),
       };
-
+  
+      // Disable the total fields again if needed
+      this.items.controls.forEach((item) => item.get('total')?.disable());
+  
       // Handle form submission
       console.log('formData: ', formData);
       this.store.dispatch(addInvoice({ invoice: formData }));
