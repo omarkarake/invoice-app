@@ -98,7 +98,7 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
       clientCity: [invoice.clientAddress.city, Validators.required],
       clientPostCode: [invoice.clientAddress.postCode, Validators.required],
       clientCountry: [invoice.clientAddress.country, Validators.required],
-      InvoiceDate: [invoice.createdAt, Validators.required],
+      InvoiceDate: [this.datePipe.transform(invoice.createdAt, 'yyyy-MM-dd'), Validators.required],
       paymentTerms: [invoice.paymentTerms, Validators.required],
       projectDescription: [invoice.description, Validators.required],
       items: this.fb.array(invoice.items.map((item) => this.createItem(item))),

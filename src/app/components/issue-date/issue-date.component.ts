@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
@@ -8,13 +8,17 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./issue-date.component.css'],
   providers: [DatePipe]
 })
-export class IssueDateComponent {
+export class IssueDateComponent implements OnInit {
   @Input() control: FormControl = new FormControl('');
   isDroping = false;
   selectedDate: string = '';
 
-  constructor(private datePipe: DatePipe) {
-    this.selectedDate = this.formatDate(new Date()); // Initialize with today's date formatted
+  constructor(private datePipe: DatePipe) {}
+
+  ngOnInit(): void {
+    // Initialize selectedDate based on the control value or current date
+    const initialDate = this.control.value ? new Date(this.control.value) : new Date();
+    this.selectedDate = this.formatDate(initialDate);
   }
 
   toggleDroping(picker: any): void {
