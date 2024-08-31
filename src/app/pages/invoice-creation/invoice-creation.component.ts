@@ -15,6 +15,7 @@ import {
   selectFilteredInvoices,
   selectInvoiceState,
 } from '../../store/selectors/invoice.selector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-invoice-creation',
@@ -32,7 +33,8 @@ export class InvoiceCreationComponent implements OnInit, DoCheck {
       appState: { invoice: Invoice[]; filteredInvoice: string[] };
     }>,
     private fb: FormBuilder,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) {
     this.invoices$ = this.store.select(selectInvoiceState);
   }
@@ -199,12 +201,13 @@ export class InvoiceCreationComponent implements OnInit, DoCheck {
       // Handle form submission
       console.log('formData: ', formData);
       this.store.dispatch(addInvoice({ invoice: formData }));
-      this.discardForm();
+      this.router.navigate(['/home']);
     }
   }
 
   discardForm(): void {
     this.invoiceForm.reset();
+    this.router.navigate(['/home']);
   }
 
   generateId(): string {
