@@ -141,7 +141,7 @@ export class HomeComponent implements OnInit, DoCheck {
       clientPostCode: new FormControl('', Validators.required),
       clientCountry: new FormControl('', Validators.required),
       InvoiceDate: new FormControl('', Validators.required),
-      paymentTerms: new FormControl('', Validators.required),
+      paymentTerms: new FormControl(1, Validators.required),
       projectDescription: new FormControl('', Validators.required),
       items: this.fb.array([this.createItem()]),
       status: new FormControl('pending'),
@@ -185,7 +185,10 @@ export class HomeComponent implements OnInit, DoCheck {
 
       // Format the dates (assuming you want to use today's date for createdAt and tomorrow's date for paymentDue)
       const createdAt = this.formatDate(new Date());
-      const paymentDue = this.calculatePaymentDueDate(createdAt, this.paymentTermsControl.value);
+      const paymentDue = this.calculatePaymentDueDate(
+        createdAt,
+        this.paymentTermsControl.value
+      );
 
       // Map form data to the desired structure
       const formData = {
@@ -219,7 +222,7 @@ export class HomeComponent implements OnInit, DoCheck {
       };
 
       // Handle form submission
-      console.log("formData: ", formData);
+      console.log('formData: ', formData);
     }
   }
 
@@ -242,14 +245,20 @@ export class HomeComponent implements OnInit, DoCheck {
     return `${prefix}${randomNumber}`;
   }
 
-  private calculatePaymentDueDate(createdAt: string, paymentTerms: number): string {
+  private calculatePaymentDueDate(
+    createdAt: string,
+    paymentTerms: number
+  ): string {
     const createdDate = new Date(createdAt);
     createdDate.setDate(createdDate.getDate() + paymentTerms);
     return this.formatDate(createdDate);
   }
 
   private calculateInvoiceTotal(): number {
-    return this.items.value.reduce((sum: number, item: any) => sum + item.total, 0);
+    return this.items.value.reduce(
+      (sum: number, item: any) => sum + item.total,
+      0
+    );
   }
 
   private formatDate(date: Date): string {
