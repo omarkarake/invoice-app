@@ -262,6 +262,9 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
 
   onSubmit(): void {
     if (this.invoiceForm.valid) {
+      // Enable the total fields before extracting the form values
+      this.items.controls.forEach((item) => item.get('total')?.enable());
+
       // Format the dates (assuming you want to use today's date for createdAt and tomorrow's date for paymentDue)
       const createdAt = this.invoiceDateControl.value;
       const paymentDue = this.calculatePaymentDueDate(
@@ -299,8 +302,11 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
         total: this.calculateInvoiceTotal(),
       };
 
+      // Disable the total fields again if needed
+      this.items.controls.forEach((item) => item.get('total')?.disable());
+
       // Handle form submission
-      console.log('formData after submition: ', formData);
+      console.log('formData after submission: ', formData);
     }
   }
 }
