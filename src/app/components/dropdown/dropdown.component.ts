@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.css'],
 })
-export class DropdownComponent {
+export class DropdownComponent implements OnInit {
   isDroping = false;
   @Input() control: FormControl = new FormControl('');
   selectedPaymentTerm: number = 1; // Default to 1 day
@@ -17,6 +17,11 @@ export class DropdownComponent {
     { label: 'Net 14 Days', value: 14 },
     { label: 'Net 30 Days', value: 30 },
   ];
+
+  ngOnInit(): void {
+    // Initialize selectedPaymentTerm based on the control value or default to 1
+    this.selectedPaymentTerm = this.control.value || 1;
+  }
 
   toggleDroping() {
     this.isDroping = !this.isDroping;
