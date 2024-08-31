@@ -175,11 +175,11 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
   }
 
   editInvoiceTrigger() {
-    this.invoiceEditSlide = !this.invoiceEditSlide;
+    // this.invoiceEditSlide = !this.invoiceEditSlide;
   }
 
   closeInvoice() {
-    this.invoiceEditSlide = false;
+    // this.invoiceEditSlide = false;
   }
 
   markAsPaid() {
@@ -215,5 +215,21 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
       this.closeModal();
       this.router.navigate(['/home']);
     }
+  }
+
+  addItem(): void {
+    this.items.push(this.createItem());
+  }
+
+  removeItem(index: number): void {
+    this.items.removeAt(index);
+  }
+
+  calculateTotal(index: number): void {
+    const item = this.items.at(index);
+    const quantity = item.get('quantity')?.value || 0;
+    const price = item.get('price')?.value || 0;
+    const total = quantity * price;
+    item.get('total')?.setValue(total);
   }
 }
