@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   trigger,
   state,
@@ -6,6 +7,9 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { Store } from '@ngrx/store';
+import { selectInvoiceById } from '../../store/selectors/invoice.selector';
+import { Invoice } from '../../models/invoice.model';
 
 @Component({
   selector: 'app-view-invoice',
@@ -30,11 +34,34 @@ import {
     ]),
   ],
 })
-export class ViewInvoiceComponent {
+export class ViewInvoiceComponent implements OnInit {
   invoiceEditSlide: boolean = false;
   isModalOpen = false;
+  invoiceId: string | null = null;
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<{
+      appState: { invoice: Invoice[]; filteredInvoice: string[] };
+    }>
+  ) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      this.invoiceId = params.get('id');
+      console.log(this.invoiceId); // You can remove this line after testing
+      // this.store.select(selectInvoiceState).subscribe((data) => {
+      //   console.log('invoices datas:', data); // You can remove this line after testing
+      // });
+      if (this.invoiceId) {
+        this.store
+          .select(selectInvoiceById(this.invoiceId))
+          .subscribe((data) => {
+            console.log('Selected invoice:', data); // You can remove this line after testing
+          });
+      }
+    });
+  }
 
   editInvoiceTrigger() {
     this.invoiceEditSlide = !this.invoiceEditSlide;

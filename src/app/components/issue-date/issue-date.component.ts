@@ -29,7 +29,7 @@ export class IssueDateComponent {
   onDateSelected(): void {
     this.isDroping = false; // Close the dropdown when a date is selected
     this.selectedDate = this.formatDate(this.control.value);
-    console.log('Selected Date:', this.selectedDate);
+    // console.log('Selected Date:', this.selectedDate);
   }
 
   private formatDate(date: Date): string {

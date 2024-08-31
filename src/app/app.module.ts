@@ -62,9 +62,9 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
-      { path: 'view/:invoice_id', component: ViewInvoiceComponent },
-      { path: 'edit/:invoice_id', component: EditComponent },
-      { path: 'new/:invoice_id', component: InvoiceCreationComponent },
+      { path: 'view/:id', component: ViewInvoiceComponent },
+      { path: 'edit/:id', component: EditComponent },
+      { path: 'new/:id', component: InvoiceCreationComponent },
     ]),
     StoreModule.forRoot({
       appState: invoiceReducer,

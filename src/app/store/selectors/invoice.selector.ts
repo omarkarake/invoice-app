@@ -8,12 +8,14 @@ export const selectFilteredInvoice = (state: {
   appState: { filteredInvoice: string[] };
 }) => state.appState.filteredInvoice;
 
-
 export const selectFilteredInvoices = (state: {
   appState: { invoice: Invoice[]; filteredInvoice: string[] };
 }) => {
   // If no filters are selected, return all invoices
-  if (!state.appState.filteredInvoice || state.appState.filteredInvoice.length === 0) {
+  if (
+    !state.appState.filteredInvoice ||
+    state.appState.filteredInvoice.length === 0
+  ) {
     return state.appState.invoice;
   }
 
@@ -25,3 +27,7 @@ export const selectFilteredInvoices = (state: {
   return filteredInvoices;
 };
 
+export const selectInvoiceById =
+  (id: string) => (state: { appState: { invoice: Invoice[] } }) => {
+    return state.appState.invoice.find((invoice) => invoice.id === id);
+  };
