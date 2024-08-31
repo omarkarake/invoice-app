@@ -299,22 +299,22 @@
       *ngFor="let invoice of invoiceDatas"
       class="hidden hover:shadow-sm hover:shadow-primary mt-4 bg-white dark:bg-secondary-dark px-6 py-3 rounded-lg md:flex items-center justify-between cursor-pointer"
     >
-      <div class="pt-3">
+      <div class="pt-3 w-[8%] flex justify-center items-center">
         <p class="text-body1 dark:text-white !font-bold">
           <span class="text-accent-medium">#</span>{{ invoice.id }}
         </p>
       </div>
-      <div class="pt-3">
+      <div class="pt-3 w-[13%] flex justify-center items-center">
         <p class="text-body1 dark:text-accent-light text-accent-medium">
           Due {{ invoice.paymentDue | date : "dd MMM yyyy" }}
         </p>
       </div>
-      <div class="pt-3">
+      <div class="pt-3 w-[25%] flex justify-center items-center">
         <p class="text-body1 dark:text-white text-cardtext">
           {{ invoice.clientName }}
         </p>
       </div>
-      <div class="pt-3">
+      <div class="pt-3 w-[15%] flex justify-center items-center">
         <p class="text-h3 dark:text-white">
           £{{ invoice.total | number : "1.2-2" }}
         </p>
@@ -325,7 +325,7 @@
           'bg-cardPending': invoice.status === 'pending',
           'bg-button4': invoice.status === 'draft'
         }"
-        class="px-[30px] py-[5px] bg-opacity-25 inline-flex justify-center items-center gap-2 rounded-md"
+        class="w-[25%] px-[30px] py-[5px] bg-opacity-25 inline-flex justify-center items-center gap-2 rounded-md"
       >
         <div
           [ngClass]="{
