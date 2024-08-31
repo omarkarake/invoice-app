@@ -11,7 +11,7 @@
     class="w-full dark:bg-button3-dark py-[5px] px-5 border rounded-[4px]"
     [ngClass]="{
       'border-primary-light': isTyping && isValid,
-      'border-accent-light': !isTyping && isValid,
+      'border-accent-light dark:border-none': !isTyping && isValid,
       'border-danger': !isValid
     }"
   >
