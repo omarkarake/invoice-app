@@ -24,8 +24,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { RouterModule } from '@angular/router';
 import { ViewInvoiceComponent } from './pages/view-invoice/view-invoice.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { InvoiceCreationComponent } from './components/invoice-creation/invoice-creation.component';
-import { EditComponent } from './components/edit/edit.component';
+import { InvoiceCreationComponent } from './pages/invoice-creation/invoice-creation.component';
+import { EditComponent } from './pages/edit/edit.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { StoreModule } from '@ngrx/store';
 import { invoiceReducer } from './store/reducers/invoices.reducer';
@@ -62,9 +62,9 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
+      { path: 'new', component: InvoiceCreationComponent },
       { path: 'view/:id', component: ViewInvoiceComponent },
       { path: 'edit/:id', component: EditComponent },
-      { path: 'new/:id', component: InvoiceCreationComponent },
     ]),
     StoreModule.forRoot({
       appState: invoiceReducer,

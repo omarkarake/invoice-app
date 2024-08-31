@@ -280,7 +280,7 @@
 <div
   class="flex items-center justify-between md:hidden bg-white dark:bg-secondary-dark fixed bottom-0 w-[100%] py-[22px] px-6"
 >
-  <a routerLink="/edit/:invoice_id">
+  <a [routerLink]="['/edit', invoiceId]">
     <app-button3></app-button3>
   </a>
   <div (click)="openModal()">
