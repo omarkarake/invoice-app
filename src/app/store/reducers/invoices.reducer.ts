@@ -5,6 +5,7 @@ import {
   filterInvoice,
   loadInitialInvoice,
   updateInvoiceStatus,
+  updateSingleInvoice,
 } from '../actions/invoice.action';
 import { Invoice } from '../../models/invoice.model';
 
@@ -65,5 +66,25 @@ export const invoiceReducer = createReducer(
       ...state,
       invoice: updatedInvoice,
     };
-  })
+  }),
+  // I want to listen on updateSingleInvoice action and update the invoice state
+  // where the id matches invoice in invoice state from the id passed in the action payload
+  // will remove everything from the invoice matched and replace it with the new invoice data except the id
+  on(updateSingleInvoice, (state, {  updatedInvoice, id }) => {
+    const updatedInvoices = state.invoice.map((invoice) => {
+      if (invoice.id === id) {
+        return {
+          ...updatedInvoice,
+          id: invoice.id, // Preserve the original ID
+        };
+      }
+      return invoice;
+    });
+  
+    return {
+      ...state,
+      invoice: updatedInvoices,
+    };
+  }),
+  
 );

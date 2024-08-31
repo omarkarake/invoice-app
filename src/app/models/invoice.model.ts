@@ -26,3 +26,17 @@ export interface Invoice {
   items: Item[];
   total: number;
 }
+
+export interface InvoiceToUpdate {
+  createdAt: string;
+  paymentDue: string;
+  description: string;
+  paymentTerms: number;
+  clientName: string;
+  clientEmail: string;
+  status: string;
+  senderAddress: Address;
+  clientAddress: Address;
+  items: Item[];
+  total: number;
+}

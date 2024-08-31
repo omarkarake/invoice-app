@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Invoice } from '../../models/invoice.model';
+import { Invoice, InvoiceToUpdate } from '../../models/invoice.model';
 
 export const loadInitialInvoice = createAction(
   '[Invoice] Load Initial Invoice',
@@ -24,4 +24,9 @@ export const updateInvoiceStatus = createAction(
 export const deleteInvoice = createAction(
   '[Invoice] Delete Invoice',
   props<{ id: string }>()
+);
+
+export const updateSingleInvoice = createAction(
+  '[Invoice] Update Single Invoice',
+  props<{ updatedInvoice: InvoiceToUpdate, id: string }>()
 );

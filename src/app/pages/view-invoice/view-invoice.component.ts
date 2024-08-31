@@ -14,6 +14,7 @@ import { Observable, startWith } from 'rxjs';
 import {
   deleteInvoice,
   updateInvoiceStatus,
+  updateSingleInvoice,
 } from '../../store/actions/invoice.action';
 import {
   FormBuilder,
@@ -49,7 +50,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe],
 })
 export class ViewInvoiceComponent implements OnInit, DoCheck {
-  invoiceEditSlide: boolean = true;
+  invoiceEditSlide: boolean = false;
   isModalOpen = false;
   invoiceId: string | null = null;
   invoice$: Observable<Invoice | null | undefined> | null = null;
@@ -178,11 +179,11 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
   }
 
   editInvoiceTrigger() {
-    // this.invoiceEditSlide = !this.invoiceEditSlide;
+    this.invoiceEditSlide = true;
   }
 
   closeInvoice() {
-    // this.invoiceEditSlide = false;
+    this.invoiceEditSlide = false;
   }
 
   markAsPaid() {
@@ -307,6 +308,8 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
 
       // Handle form submission
       console.log('formData after submission: ', formData);
+      this.invoiceId &&
+      this.store.dispatch(updateSingleInvoice({ updatedInvoice: formData, id: this.invoiceId }));
     }
   }
 }
