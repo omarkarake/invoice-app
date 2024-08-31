@@ -98,7 +98,10 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
       clientCity: [invoice.clientAddress.city, Validators.required],
       clientPostCode: [invoice.clientAddress.postCode, Validators.required],
       clientCountry: [invoice.clientAddress.country, Validators.required],
-      InvoiceDate: [this.datePipe.transform(invoice.createdAt, 'yyyy-MM-dd'), Validators.required],
+      InvoiceDate: [
+        this.datePipe.transform(invoice.createdAt, 'yyyy-MM-dd'),
+        Validators.required,
+      ],
       paymentTerms: [invoice.paymentTerms, Validators.required],
       projectDescription: [invoice.description, Validators.required],
       items: this.fb.array(invoice.items.map((item) => this.createItem(item))),
@@ -114,7 +117,7 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
         [Validators.required, Validators.min(1)],
       ],
       price: [item ? item.price : 0, [Validators.required, Validators.min(0)]],
-      total: [{ value: item ? item.total : 0 }],
+      total: [{ value: item ? Number(item.total) : 0, disabled: true }],
     });
   }
 
@@ -227,8 +230,8 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
 
   calculateTotal(index: number): void {
     const item = this.items.at(index);
-    const quantity = item.get('quantity')?.value || 0;
-    const price = item.get('price')?.value || 0;
+    const quantity = Number(item.get('quantity')?.value) || 0;
+    const price = Number(item.get('price')?.value) || 0;
     const total = quantity * price;
     item.get('total')?.setValue(total);
   }
