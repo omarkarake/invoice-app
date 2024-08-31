@@ -79,7 +79,6 @@ export class EditComponent implements OnInit, DoCheck {
     });
   }
 
-
   createItem(item?: Item): FormGroup {
     return this.fb.group({
       itemName: [item ? item.name : '', Validators.required],
@@ -239,6 +238,7 @@ export class EditComponent implements OnInit, DoCheck {
         this.store.dispatch(
           updateSingleInvoice({ updatedInvoice: formData, id: this.invoiceId })
         );
+      this.router.navigate(['/home']);
     }
   }
 }

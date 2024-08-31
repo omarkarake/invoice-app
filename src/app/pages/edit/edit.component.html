@@ -1,132 +1,196 @@
-<div
-  class="px-6 md:px-12 lg:px-[252px] h-[600px] md:h-auto lg:h-[620px] overflow-y-scroll py-8 md:py-14 lg:py-[72px]"
->
-  <a
-    routerLink="/view/:invoice_id"
-    class="inline-flex items-center gap-3 cursor-pointer"
+<form [formGroup]="invoiceForm">
+  <div
+    class="px-6 md:px-12 lg:px-[252px] h-[600px] md:h-auto lg:h-[620px] overflow-y-scroll py-8 md:py-14 lg:py-[72px]"
   >
-    <div><img src="assets/icon-arrow-left.svg" alt="icon-left" /></div>
-    <div class="pt-3">
-      <p class="text-body1 font-bold dark:text-white">Go back</p>
-    </div>
-  </a>
+    <a routerLink="/home" class="inline-flex items-center gap-3 cursor-pointer">
+      <div><img src="assets/icon-arrow-left.svg" alt="icon-left" /></div>
+      <div class="pt-3">
+        <p class="text-body1 font-bold dark:text-white">Go back</p>
+      </div>
+    </a>
 
-  <!-- form for creating invoice -->
-  <div>
+    <!-- form for creating invoice -->
     <div>
-      <p class="text-2xl font-bold dark:text-white">
-        Edit <span class="text-accent-muted">#</span>XM9141
-      </p>
-    </div>
-    <div>
-      <p class="text-body1 font-bold text-primary">Bill From</p>
-    </div>
-    <div>
-      <app-text-field [text]="'Street Address'"></app-text-field>
-    </div>
-
-    <div class="flex justify-between items-center mt-6">
-      <div class="w-[48%]">
-        <app-text-field [text]="'City'"></app-text-field>
+      <div>
+        <p class="text-2xl font-bold dark:text-white">New Invoice</p>
       </div>
-      <div class="w-[48%]">
-        <app-text-field [text]="'Post Code'"></app-text-field>
+      <div>
+        <p class="text-body1 font-bold text-primary">Bill From</p>
       </div>
-    </div>
-    <div class="mt-6">
-      <app-text-field [text]="'Country'"></app-text-field>
-    </div>
-
-    <div class="mt-10">
-      <p class="text-body1 font-bold text-primary">Bill From</p>
-    </div>
-
-    <div class="mt-6">
-      <app-text-field [text]="'Client\’s Name'"></app-text-field>
-    </div>
-
-    <div class="mt-6">
-      <app-text-field [text]="'Client’s Email'"></app-text-field>
-    </div>
-
-    <div class="mt-6">
-      <app-text-field [text]="'Street Address'"></app-text-field>
-    </div>
-
-    <div class="flex justify-between items-center mt-6">
-      <div class="w-[48%]">
-        <app-text-field [text]="'City'"></app-text-field>
+      <div>
+        <app-text-field
+          [text]="'Street Address'"
+          [control]="streetAddressControl"
+          [isValid]="
+            streetAddressControl.valid || streetAddressControl.untouched
+          "
+        ></app-text-field>
       </div>
-      <div class="w-[48%]">
-        <app-text-field [text]="'Post Code'"></app-text-field>
-      </div>
-    </div>
-
-    <div class="mt-6">
-      <app-text-field [text]="'Country'"></app-text-field>
-    </div>
-
-    <div class="mt-6">
-      <app-issue-date></app-issue-date>
-    </div>
-
-    <div class="mt-6">
-      <app-dropdown></app-dropdown>
-    </div>
-
-    <div class="mt-6">
-      <app-text-field [text]="'Project Description'"></app-text-field>
-    </div>
-
-    <div class="mt-[66px]">
-      <p class="text-[18px] font-bold leading-8 text-itemList">Item List</p>
-    </div>
-
-    <div class="mt-6">
-      <app-text-field [text]="'Item Name'"></app-text-field>
-    </div>
-
-    <div class="mt-6 w-full flex justify-between items-end">
-      <div class="w-[18%]">
-        <div class="mt-6">
-          <app-text-field [text]="'Qty.'"></app-text-field>
+      <div class="flex justify-between items-center mt-6">
+        <div class="w-[48%]">
+          <app-text-field
+            [text]="'City'"
+            [control]="cityControl"
+            [isValid]="cityControl.valid || cityControl.untouched"
+          ></app-text-field>
+        </div>
+        <div class="w-[48%]">
+          <app-text-field
+            [text]="'Post Code'"
+            [control]="postCodeControl"
+            [isValid]="postCodeControl.valid || postCodeControl.untouched"
+          ></app-text-field>
         </div>
       </div>
-      <div class="w-[28%]">
-        <div class="mt-6">
-          <app-text-field [text]="'Price'"></app-text-field>
+      <div class="mt-6">
+        <app-text-field
+          [text]="'Country'"
+          [control]="countryControl"
+          [isValid]="countryControl.valid || countryControl.untouched"
+        ></app-text-field>
+      </div>
+      <div class="mt-10">
+        <p class="text-body1 font-bold text-primary">Bill To</p>
+      </div>
+      <div class="mt-6">
+        <app-text-field
+          [text]="'Client’s Name'"
+          [control]="clientNameControl"
+          [isValid]="clientNameControl.valid || clientNameControl.untouched"
+        ></app-text-field>
+      </div>
+      <div class="mt-6">
+        <app-text-field
+          [text]="'Client’s Email'"
+          [control]="clientEmailControl"
+          [isValid]="clientEmailControl.valid || clientEmailControl.untouched"
+        ></app-text-field>
+      </div>
+      <div class="mt-6">
+        <app-text-field
+          [text]="'Street Address'"
+          [control]="clientStreetAdressControl"
+          [isValid]="
+            clientStreetAdressControl.valid ||
+            clientStreetAdressControl.untouched
+          "
+        ></app-text-field>
+      </div>
+      <div class="flex justify-between items-center mt-6">
+        <div class="w-[48%]">
+          <app-text-field
+            [text]="'City'"
+            [control]="clientCityControl"
+            [isValid]="clientCityControl.valid || clientCityControl.untouched"
+          ></app-text-field>
+        </div>
+        <div class="w-[48%]">
+          <app-text-field
+            [text]="'Post Code'"
+            [control]="clientPostCodeControl"
+            [isValid]="
+              clientPostCodeControl.valid || clientPostCodeControl.untouched
+            "
+          ></app-text-field>
         </div>
       </div>
-      <div class="w-[28%] flex flex-col justify-start gap-5 h-[85px]">
-        <p class="text-body1 dark:text-accent-light text-accent-medium">
-          Total
-        </p>
-        <p
-          class="text-body1 dark:text-accent-light text-accent-muted !font-bold"
+      <div class="mt-6">
+        <app-text-field
+          [text]="'Country'"
+          [control]="clientCountryControl"
+          [isValid]="
+            clientCountryControl.valid || clientCountryControl.untouched
+          "
+        ></app-text-field>
+      </div>
+      <div class="mt-6">
+        <app-issue-date [control]="invoiceDateControl"></app-issue-date>
+      </div>
+      <div class="mt-6">
+        <app-dropdown [control]="paymentTermsControl"></app-dropdown>
+      </div>
+      <div class="mt-6">
+        <app-text-field
+          [control]="projectDescriptionControl"
+          [isValid]="
+            projectDescriptionControl.valid ||
+            projectDescriptionControl.untouched
+          "
+          [text]="'Project Description'"
+        ></app-text-field>
+      </div>
+      <div class="mt-[66px]">
+        <p class="text-[18px] font-bold leading-8 text-itemList">Item List</p>
+      </div>
+      <div formArrayName="items">
+        <div
+          *ngFor="let item of items.controls; let i = index"
+          [formGroupName]="i"
+          class="mt-6 w-full flex flex-col"
         >
-          400.00
-        </p>
+          <div class="w-full mt-6">
+            <app-text-field
+              [text]="'Item Name'"
+              formControlName="itemName"
+            ></app-text-field>
+          </div>
+          <div class="w-full flex justify-between h-[100px]">
+            <div class="w-[20%]">
+              <div class="mt-6">
+                <app-text-field
+                  [text]="'Qty.'"
+                  formControlName="quantity"
+                  (input)="calculateTotal(i)"
+                ></app-text-field>
+              </div>
+            </div>
+            <div class="w-[40%]">
+              <div class="mt-6">
+                <app-text-field
+                  [text]="'Price'"
+                  formControlName="price"
+                  (input)="calculateTotal(i)"
+                ></app-text-field>
+              </div>
+            </div>
+            <div class="flex flex-col justify-start gap-2 pt-6">
+              <p class="text-body1 dark:text-accent-light text-accent-medium">
+                Total
+              </p>
+              <p
+                class="text-body1 dark:text-accent-light text-accent-muted !font-bold"
+              >
+                {{ items.at(i).get("total")?.value | currency }}
+              </p>
+            </div>
+            <div
+              class="h-[60px] flex justify-end pr-1 cursor-pointer pt-9"
+              (click)="removeItem(i)"
+            >
+              <img
+                class="w-[16px] h-[20px]"
+                src="assets/icon-delete.svg"
+                alt="icon-delete"
+              />
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="w-[18%] h-[50px] flex justify-end pr-1 cursor-pointer">
-        <img
-          class="w-[16px] h-[20px]"
-          src="assets/icon-delete.svg"
-          alt="icon-delete"
-        />
+      <div class="mt-6">
+        <button class="w-full" type="button" (click)="addItem()">
+          <app-button6></app-button6>
+        </button>
       </div>
-    </div>
-
-    <div class="mt-6">
-      <app-button6></app-button6>
+      <div
+        class="flex items-center justify-end gap-3 md:hidden bg-white dark:bg-secondary-dark fixed left-0 bottom-0 w-[100%] py-[22px] px-6"
+      >
+        <div (click)="discardForm()">
+          <app-button3 [text]="'Cancel'"></app-button3>
+        </div>
+        <button type="button" (click)="onSubmit()">
+          <app-button2 [text]="'Save Changes'"></app-button2>
+        </button>
+      </div>
     </div>
   </div>
-</div>
-<!-- header of invoice down for mobile -->
-<div
-  class="flex items-center justify-end gap-3 md:hidden bg-white dark:bg-secondary-dark fixed bottom-0 w-[100%] py-[22px] px-6"
->
-  <a routerLink="/view/:id">
-    <app-button3 [text]="'Cancel'"></app-button3>
-  </a>
-  <app-button2 [text]="'Save Changes'"></app-button2>
-</div>
+</form>
