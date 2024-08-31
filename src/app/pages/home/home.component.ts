@@ -220,7 +220,7 @@ export class HomeComponent implements OnInit, DoCheck {
           price: item.price,
           total: item.total,
         })),
-        total: this.calculateInvoiceTotal(), // total: NaN
+        total: this.calculateInvoiceTotal(),
       };
 
       // Handle form submission

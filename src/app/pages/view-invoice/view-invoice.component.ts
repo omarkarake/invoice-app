@@ -239,4 +239,25 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
   discardForm(): void {
     this.closeInvoice();
   }
+
+
+  private calculatePaymentDueDate(
+    createdAt: string,
+    paymentTerms: number
+  ): string {
+    const createdDate = new Date(createdAt);
+    createdDate.setDate(createdDate.getDate() + paymentTerms);
+    return this.formatDate(createdDate);
+  }
+
+  private calculateInvoiceTotal(): number {
+    return this.items.value.reduce(
+      (sum: number, item: any) => sum + item.total,
+      0
+    );
+  }
+
+  private formatDate(date: Date): string {
+    return this.datePipe.transform(date, 'yyyy-MM-dd') || '';
+  }
 }
