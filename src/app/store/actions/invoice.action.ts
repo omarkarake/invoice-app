@@ -10,3 +10,8 @@ export const filterInvoice = createAction(
   '[Invoice] Filter Invoice',
   props<{ filteredString: string }>()
 );
+
+export const addInvoice = createAction(
+  '[Invoice] Add Invoice',
+  props<{ invoice: Invoice }>()
+);

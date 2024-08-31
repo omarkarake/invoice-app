@@ -21,6 +21,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { addInvoice } from '../../store/actions/invoice.action';
 
 @Component({
   selector: 'app-home',
@@ -47,7 +48,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe],
 })
 export class HomeComponent implements OnInit, DoCheck {
-  invoiceCreateSlide: boolean = true;
+  invoiceCreateSlide: boolean = false;
   isDroping = false;
   invoices$: Observable<Invoice[]>;
   invoiceDatas: Invoice[] = [];
@@ -65,6 +66,7 @@ export class HomeComponent implements OnInit, DoCheck {
   }
 
   newInvoiceTrigger() {
+    this.invoiceCreateSlide = true;
     console.log('newInvoiceTrigger');
   }
 
@@ -223,15 +225,18 @@ export class HomeComponent implements OnInit, DoCheck {
 
       // Handle form submission
       console.log('formData: ', formData);
+      this.store.dispatch(addInvoice({ invoice: formData }));
+      this.discardForm();
     }
   }
 
   discardForm(): void {
     this.invoiceForm.reset();
+    this.closeInvoice();
   }
 
   closeInvoice() {
-    // this.invoiceCreateSlide = false;
+    this.invoiceCreateSlide = false;
   }
 
   toggleDroping() {
