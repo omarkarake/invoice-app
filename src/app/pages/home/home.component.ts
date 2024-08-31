@@ -14,7 +14,13 @@ import {
   selectInvoiceState,
 } from '../../store/selectors/invoice.selector';
 import { Store } from '@ngrx/store';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -50,7 +56,8 @@ export class HomeComponent implements OnInit, DoCheck {
   constructor(
     private store: Store<{
       appState: { invoice: Invoice[]; filteredInvoice: string[] };
-    }>, private fb: FormBuilder
+    }>,
+    private fb: FormBuilder
   ) {
     this.invoices$ = this.store.select(selectInvoiceState);
   }
@@ -84,7 +91,7 @@ export class HomeComponent implements OnInit, DoCheck {
   get clientEmailControl(): FormControl {
     return this.invoiceForm.get('clientEmail') as FormControl;
   }
-  
+
   get clientStreetAdressControl(): FormControl {
     return this.invoiceForm.get('ClientstreetAddress') as FormControl;
   }
@@ -150,7 +157,7 @@ export class HomeComponent implements OnInit, DoCheck {
       itemName: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(1)]],
       price: [0, [Validators.required, Validators.min(0)]],
-      total: [{ value: 0, disabled: true }]
+      total: [{ value: 0, disabled: true }],
     });
   }
 
@@ -172,8 +179,17 @@ export class HomeComponent implements OnInit, DoCheck {
 
   onSubmit(): void {
     if (this.invoiceForm.valid) {
+      // Generate the ID
+      const generatedId = this.generateId();
+
+      // Add the ID to the form data
+      const formData = {
+        id: generatedId,
+        ...this.invoiceForm.value,
+      };
+
       // Handle form submission
-      console.log(this.invoiceForm.value);
+      console.log("formData: ", formData);
     }
   }
 
@@ -188,5 +204,11 @@ export class HomeComponent implements OnInit, DoCheck {
   toggleDroping() {
     this.isDroping = !this.isDroping;
     console.log('isDroping', this.isDroping);
+  }
+
+  generateId(): string {
+    const prefix = 'RT'; // You can change this to 'BY', 'RW', etc.
+    const randomNumber = Math.floor(1000 + Math.random() * 9000); // Generates a 4-digit number
+    return `${prefix}${randomNumber}`;
   }
 }
