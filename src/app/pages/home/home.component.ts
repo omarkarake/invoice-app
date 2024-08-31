@@ -135,7 +135,8 @@ export class HomeComponent implements OnInit, DoCheck {
       InvoiceDate: new FormControl('', Validators.required),
       paymentTerms: new FormControl('', Validators.required),
       projectDescription: new FormControl('', Validators.required),
-      items: this.fb.array([this.createItem()])
+      items: this.fb.array([this.createItem()]),
+      status: new FormControl(''),
       // Add other form controls as needed
     });
   }

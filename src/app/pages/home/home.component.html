@@ -380,7 +380,7 @@
   (click)="closeInvoice()"
 >
   <div class="w-full h-full overflow-y-scroll md:p-14 lg:pl-[84px]">
-    <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="invoiceForm">
       <div>
         <p class="text-2xl font-bold dark:text-white">New Invoice</p>
       </div>
@@ -554,10 +554,12 @@
       >
         <app-button3 [text]="'Discard'"></app-button3>
         <div class="flex items-center gap-3">
-          <button type="submit">
+          <button type="button" (click)="invoiceForm.get('status')?.setValue('draft'); invoiceForm.markAsDirty(); invoiceForm.markAsTouched(); onSubmit()">
             <app-button4></app-button4>
           </button>
-          <app-button2 [text]="'Save & Send'"></app-button2>
+          <button type="button" (click)="invoiceForm.get('status')?.setValue('pending'); invoiceForm.markAsDirty(); invoiceForm.markAsTouched(); onSubmit()">
+            <app-button2 [text]="'Save & Send'"></app-button2>
+          </button>
         </div>
       </div>
     </form>
