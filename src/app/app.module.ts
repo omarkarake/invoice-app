@@ -30,7 +30,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { StoreModule } from '@ngrx/store';
 import { invoiceReducer } from './store/reducers/invoices.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -53,12 +53,12 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
@@ -78,7 +78,11 @@ import { HttpClientModule } from '@angular/common/http';
       connectInZone: true, // If set to true, the connection is established within the Angular zone
     }),
   ],
-  providers: [provideClientHydration(), provideAnimationsAsync()],
+  providers: [
+    provideClientHydration(),
+    provideAnimationsAsync(),
+    provideHttpClient(withFetch()), // Enable fetch for HttpClient
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

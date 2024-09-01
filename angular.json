@@ -68,6 +68,11 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "analyze": {
+              "sourceMap": true,
+              "optimization": true,
+              "statsJson": true
             }
           },
           "defaultConfiguration": "production"
