@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/c68c55b1-5e3d-4dca-9c28-8ec3d84daa4e/resourceGroups/SampleResourceGroup/providers/Microsoft.Web/sites/invoice-app",
+  "appService.deploySubpath": "dist\\invoice-app"
+}
