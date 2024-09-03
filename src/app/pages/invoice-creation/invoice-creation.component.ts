@@ -199,7 +199,6 @@ export class InvoiceCreationComponent implements OnInit, DoCheck {
       this.items.controls.forEach((item) => item.get('total')?.disable());
 
       // Handle form submission
-      console.log('formData: ', formData);
       this.store.dispatch(addInvoice({ invoice: formData }));
       this.router.navigate(['/home']);
     }

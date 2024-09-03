@@ -67,7 +67,6 @@ export class HomeComponent implements OnInit, DoCheck {
 
   newInvoiceTrigger() {
     this.invoiceCreateSlide = true;
-    console.log('newInvoiceTrigger');
   }
 
   // Getter for streetAddress FormControl
@@ -230,7 +229,6 @@ export class HomeComponent implements OnInit, DoCheck {
       this.items.controls.forEach((item) => item.get('total')?.disable());
   
       // Handle form submission
-      console.log('formData: ', formData);
       this.store.dispatch(addInvoice({ invoice: formData }));
       this.discardForm();
     }
@@ -247,7 +245,6 @@ export class HomeComponent implements OnInit, DoCheck {
 
   toggleDroping() {
     this.isDroping = !this.isDroping;
-    console.log('isDroping', this.isDroping);
   }
 
   generateId(): string {

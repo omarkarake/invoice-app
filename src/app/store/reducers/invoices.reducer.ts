@@ -42,7 +42,6 @@ export const invoiceReducer = createReducer(
     };
   }),
   on(updateInvoiceStatus, (state, { id }) => {
-    console.log('paid clicked with id: ', id);
     const updatedInvoice = state.invoice.map((invoice) => {
       if (invoice.id === id) {
         return {
@@ -59,7 +58,6 @@ export const invoiceReducer = createReducer(
     };
   }),
   on(deleteInvoice, (state, { id }) => {
-    console.log('delete clicked with id: ', id);
     const updatedInvoice = state.invoice.filter((invoice) => invoice.id !== id);
 
     return {

@@ -99,7 +99,7 @@
           <div (click)="openModal()">
             <app-button5></app-button5>
           </div>
-          <div (click)="markAsPaid()">
+          <div (click)="markAsPaid()" *ngIf="isInvoicePaid$ | async">
             <app-button2></app-button2>
           </div>
         </div>
@@ -286,7 +286,7 @@
   <div (click)="openModal()">
     <app-button5></app-button5>
   </div>
-  <div (click)="markAsPaid()">
+  <div (click)="markAsPaid()" *ngIf="isInvoicePaid$ | async">
     <app-button2></app-button2>
   </div>
 </div>

@@ -7,10 +7,10 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { selectInvoiceById } from '../../store/selectors/invoice.selector';
 import { Invoice, Item } from '../../models/invoice.model';
-import { Observable, startWith } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import {
   deleteInvoice,
   updateInvoiceStatus,
@@ -55,6 +55,7 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
   invoiceId: string | null = null;
   invoice$: Observable<Invoice | null | undefined> | null = null;
   invoiceForm!: FormGroup;
+  isInvoicePaid$: Observable<boolean> | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -79,6 +80,11 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
             this.initializeForm(invoice);
           }
         });
+        this.isInvoicePaid$ = this.invoice$.pipe(
+          map((invoice) => {
+            return invoice?.status === 'paid' ? false : true;
+          })
+        );
       }
     });
   }
@@ -213,7 +219,6 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
   }
 
   deleteInvoice() {
-    console.log('deleteInvoice with id: ', this.invoiceId);
     if (this.invoiceId) {
       this.store.dispatch(deleteInvoice({ id: this.invoiceId }));
       this.closeModal();
@@ -307,7 +312,6 @@ export class ViewInvoiceComponent implements OnInit, DoCheck {
       this.items.controls.forEach((item) => item.get('total')?.disable());
 
       // Handle form submission
-      console.log('formData after submission: ', formData);
       this.invoiceId &&
         this.store.dispatch(
           updateSingleInvoice({ updatedInvoice: formData, id: this.invoiceId })

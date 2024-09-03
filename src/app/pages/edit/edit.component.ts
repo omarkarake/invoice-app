@@ -20,7 +20,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./edit.component.css'],
   providers: [DatePipe],
 })
-export class EditComponent implements OnInit, DoCheck {
+export class EditComponent implements OnInit {
   invoiceId: string | null = null;
   invoice$: Observable<Invoice | null | undefined> | null = null;
   invoiceForm!: FormGroup;
@@ -50,10 +50,6 @@ export class EditComponent implements OnInit, DoCheck {
         });
       }
     });
-  }
-
-  ngDoCheck(): void {
-    console.log('invoiceForm: ', this.invoiceForm.value);
   }
 
   initializeForm(invoice: Invoice) {
@@ -233,7 +229,6 @@ export class EditComponent implements OnInit, DoCheck {
       this.items.controls.forEach((item) => item.get('total')?.disable());
 
       // Handle form submission
-      console.log('formData after submission: ', formData);
       this.invoiceId &&
         this.store.dispatch(
           updateSingleInvoice({ updatedInvoice: formData, id: this.invoiceId })

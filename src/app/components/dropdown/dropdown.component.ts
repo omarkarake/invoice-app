@@ -31,7 +31,6 @@ export class DropdownComponent implements OnInit {
     this.selectedPaymentTerm = termValue;
     this.control.setValue(termValue); // Update the form control value with the number
     this.toggleDroping(); // Close the dropdown after selection
-    console.log('Selected Payment Term (days):', this.selectedPaymentTerm);
   }
 
   getSelectedLabel(): string {
