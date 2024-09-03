@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -6,7 +6,7 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Invoice } from '../../models/invoice.model';
 import {
   selectFilteredInvoices,
@@ -47,11 +47,12 @@ import { addInvoice } from '../../store/actions/invoice.action';
   ],
   providers: [DatePipe],
 })
-export class HomeComponent implements OnInit, DoCheck {
+export class HomeComponent implements OnInit, DoCheck, OnDestroy {
   invoiceCreateSlide: boolean = false;
   isDroping = false;
   invoices$: Observable<Invoice[]>;
   invoiceDatas: Invoice[] = [];
+  parentSubscription: Subscription = new Subscription();
 
   invoiceForm!: FormGroup;
 
@@ -148,6 +149,10 @@ export class HomeComponent implements OnInit, DoCheck {
       status: new FormControl('pending'),
       // Add other form controls as needed
     });
+  }
+
+  ngOnDestroy(): void {
+      this.parentSubscription.unsubscribe();
   }
 
   ngDoCheck(): void {

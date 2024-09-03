@@ -1,9 +1,9 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectInvoiceById } from '../../store/selectors/invoice.selector';
 import { Invoice, Item } from '../../models/invoice.model';
-import { Observable, startWith } from 'rxjs';
+import { Observable, startWith, Subscription } from 'rxjs';
 import { updateSingleInvoice } from '../../store/actions/invoice.action';
 import {
   FormBuilder,
@@ -20,10 +20,11 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./edit.component.css'],
   providers: [DatePipe],
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
   invoiceId: string | null = null;
   invoice$: Observable<Invoice | null | undefined> | null = null;
   invoiceForm!: FormGroup;
+  parentSubscription: Subscription = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
@@ -36,20 +37,26 @@ export class EditComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
-      this.invoiceId = params.get('id');
-      if (this.invoiceId) {
-        this.invoice$ = this.store
-          .select(selectInvoiceById(this.invoiceId))
-          .pipe(startWith(null));
+    this.parentSubscription.add(
+      this.route.paramMap.subscribe((params) => {
+        this.invoiceId = params.get('id');
+        if (this.invoiceId) {
+          this.invoice$ = this.store
+            .select(selectInvoiceById(this.invoiceId))
+            .pipe(startWith(null));
 
-        this.invoice$.subscribe((invoice) => {
-          if (invoice) {
-            this.initializeForm(invoice);
-          }
-        });
-      }
-    });
+          this.invoice$.subscribe((invoice) => {
+            if (invoice) {
+              this.initializeForm(invoice);
+            }
+          });
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.parentSubscription.unsubscribe();
   }
 
   initializeForm(invoice: Invoice) {
